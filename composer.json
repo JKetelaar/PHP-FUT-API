@@ -1,0 +1,19 @@
+{
+    "name": "jketelaar/fut-bot",
+    "authors": [
+        {
+            "name": "JKetelaar",
+            "email": "jeroen@ketelaar.me"
+        }
+    ],
+    "require": {
+        "php-curl-class/php-curl-class": "^7.0",
+        "sunra/php-simple-html-dom-parser": "^1.5",
+        "spomky-labs/otphp": "^8.2"
+    },
+    "autoload": {
+        "psr-0": {
+            "JKetelaar": "src/"
+        }
+    }
+}
