@@ -5,6 +5,7 @@
 
 namespace JKetelaar\fut\bot\web;
 
+use JKetelaar\fut\bot\config\Configuration;
 use simplehtmldom_1_5\simple_html_dom;
 use Sunra\PhpSimple\HtmlDomParser;
 
@@ -15,7 +16,6 @@ class Parser {
      * @return bool|\simplehtmldom_1_5\simple_html_dom
      */
     public static function getHTML($string) {
-        var_dump($string);
         $html = HtmlDomParser::str_get_html($string, true, false);
 
         return $html;
