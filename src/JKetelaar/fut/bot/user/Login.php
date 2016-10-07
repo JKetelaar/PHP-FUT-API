@@ -40,6 +40,11 @@ class Login {
     private $shardInfos;
 
     /**
+     * @var array
+     */
+    private $persona;
+
+    /**
      * Login constructor.
      *
      * @param User $user
@@ -113,6 +118,115 @@ class Login {
         }
     }
 
+    private function getShards($id = null) {
+        if($id == null) {
+            $id = $this->nucleusId;
+        }
+
+        $tempCurl = &$this->curl;
+        $tempCurl->setOpt(CURLOPT_HTTPHEADER, [ 'Content-Type:application/json' ]);
+        $tempCurl->setHeaders(
+            [
+                'Easw-Session-Data-Nucleus-Id' => $id,
+                'X-UT-Embed-Error'             => Configuration::X_UT_EMBED_ERROR,
+                'X-UT-Route'                   => Configuration::X_UT_ROUTE,
+                'X-Requested-With'             => Configuration::X_REQUESTED_WITH,
+                'Referer'                      => URL::REFERER,
+            ]
+        );
+
+        $tempCurl->get(URL::LOGIN_SHARDS);
+
+        if($tempCurl->error) {
+            throw new MainLogin($tempCurl->errorCode, $tempCurl->errorMessage);
+        }
+
+        if(($response = $tempCurl->response) != null) {
+            if(($shards = json_decode(json_encode($tempCurl->response), true)) != null) {
+                foreach($shards[ 'shardInfo' ] as $shard) {
+                    foreach($shard[ 'platforms' ] as $platform) {
+                        if($platform === API::getPlatform($this->user->getPlatform())) {
+                            $this->shardInfos = $shard;
+                        }
+                    }
+                }
+                $this->getAccountInformation();
+            } else {
+                throw new \Exception(289684, 'Could not decode shards');
+            }
+        } else {
+            throw new \Exception(292751, 'No response received for shards');
+        }
+    }
+
+    /**
+     * @param null $shards
+     *
+     * @throws MainLogin
+     */
+    private function getAccountInformation($shards = null) {
+        if($shards == null) {
+            $shards = $this->shardInfos;
+        }
+
+        $tempCurl = &$this->curl;
+        $tempCurl->setHeader('X-UT-Route', 'https://' . $shards[ 'clientFacingIpPort' ]);
+        $tempCurl->get(URL::LOGIN_ACCOUNTS);
+
+        if($tempCurl->error) {
+            throw new MainLogin($tempCurl->errorCode, $tempCurl->errorMessage);
+        }
+
+        $accounts = json_decode(json_encode($tempCurl->response), true);
+        if(sizeof($accounts) > 0 && sizeof($accounts[ 'userAccountInfo' ]) > 0 && sizeof(
+                                                                                      $accounts[ 'userAccountInfo' ][ 'personas' ]
+                                                                                  ) > 0
+        ) {
+            $p = null;
+            foreach($accounts[ 'userAccountInfo' ][ 'personas' ] as $persona) {
+                foreach($persona[ 'userClubList' ] as $club) {
+                    if($club[ 'year' ] == Configuration::FUT_YEAR && $club[ 'platform' ] == API::getPlatform(
+                            $this->user->getPlatform()
+                        )
+                    ) {
+                        $p = $persona;
+                    }
+                }
+            }
+            if($p != null) {
+                $this->persona = $p;
+                $this->getSession();
+            } else {
+                throw new MainLogin(281625, 'Could not find a fitting persona');
+            }
+        } else {
+            throw new MainLogin(281725, 'Provided personas are incorrect');
+        }
+    }
+
+    private function getSession() {
+        $data = [
+            'nucleusPersonaId'          => $this->persona[ 'personaId' ],
+            'nucleusPersonaDisplayName' => $this->persona[ 'personaName' ],
+            'gameSku'                   => API::getGameSku($this->user->getPlatform()),
+            'nucleusPersonaPlatform'    => API::getPlatform($this->user->getPlatform()),
+        ];
+        $data = array_merge(Configuration::DEFAULT_SESSION_FORM_DATA, $data);
+
+        $curl = &$this->curl;
+
+        $curl->setHeader('Content-Type', 'application/json');
+        $curl->post(URL::LOGIN_SESSION, $data);
+
+        if($curl->error) {
+            throw new MainLogin($curl->errorCode, $curl->errorMessage);
+        }
+
+        $data = json_decode(json_encode($curl->response), true);
+        var_dump($data);
+        die();
+    }
+
     private function postLoginForm($url) {
         $this->curl->post(
             $url,
@@ -174,66 +288,6 @@ class Login {
             }
         } else {
             throw new NulledTokenFunction();
-        }
-    }
-
-    /**
-     * @param null $shards
-     */
-    private function getAccountInformation($shards = null){
-        if($shards == null){
-            $shards = $this->shardInfos;
-        }
-
-        $curl = $this->setupCurl();
-
-        $curl->setHeader('X-UT-Route', $shards['clientFacingIpPort']);
-
-        $curl->get(URL::LOGIN_ACCOUNTS);
-        var_dump($curl->response);
-        die();
-    }
-
-    private function getShards($id = null) {
-        if ($id == null){
-            $id = $this->nucleusId;
-        }
-
-        $tempCurl = &$this->curl;
-        $tempCurl->setOpt(CURLOPT_HTTPHEADER, [ 'Content-Type:application/json' ]);
-        $tempCurl->setHeaders(
-            [
-                'Easw-Session-Data-Nucleus-Id' => $id,
-                'X-UT-Embed-Error'             => Configuration::X_UT_EMBED_ERROR,
-                'X-UT-Route'                   => Configuration::X_UT_ROUTE,
-                'X-Requested-With'             => Configuration::X_REQUESTED_WITH,
-                'Referer'                      => URL::REFERER,
-            ]
-        );
-
-        $tempCurl->get(URL::LOGIN_SHARDS);
-
-        if($tempCurl->error) {
-            throw new MainLogin($this->curl->errorCode, $this->curl->errorMessage);
-        }
-
-        if (($response = $tempCurl->response) != null) {
-            if (($shards = json_decode(json_encode($tempCurl->response), true)) != null){
-                foreach($shards['shardInfo'] as $shard){
-                    foreach($shard['platforms'] as $platform){
-                        if ($platform === API::getPlatform($this->user->getPlatform())){
-                            $this->shardInfos = $shard;
-                        }
-                        var_dump($platform);
-                    }
-                }
-                die();
-                $this->getAccountInformation();
-            }else{
-                throw new \Exception(289684, 'Could not decode shards');
-            }
-        }else{
-            throw new \Exception(292751, 'No response received for shards');
         }
     }
 }
