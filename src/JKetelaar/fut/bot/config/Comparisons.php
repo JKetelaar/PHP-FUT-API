@@ -5,7 +5,7 @@
 
 namespace JKetelaar\fut\bot\config;
 
-class Comparisons {
+abstract class Comparisons {
 
     const MAIN_LOGIN_TITLE            = 'Log In';
     const LOGIN_FORM_TITLE            = 'Login Verification';
@@ -13,5 +13,6 @@ class Comparisons {
     const LOGGED_IN_TITLE             = 'FIFA Football | FUT Web App | EA SPORTS';
     const ALREADY_LOGGED_IN           = 'Already answered question';
     const CORRECT_ANSWER              = 'Answer is correct.';
+    const CAPTCHA_BODY_CODE = 459;
 
 }

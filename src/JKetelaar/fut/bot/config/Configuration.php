@@ -5,7 +5,7 @@
 
 namespace JKetelaar\fut\bot\config;
 
-class Configuration {
+abstract class Configuration {
     const FUT_YEAR = 2017;
 
     // Headers

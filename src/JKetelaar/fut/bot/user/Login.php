@@ -10,6 +10,7 @@ use JKetelaar\fut\bot\API;
 use JKetelaar\fut\bot\config\Comparisons;
 use JKetelaar\fut\bot\config\Configuration;
 use JKetelaar\fut\bot\config\URL;
+use JKetelaar\fut\bot\errors\CaptchaException;
 use JKetelaar\fut\bot\errors\login\MainLogin;
 use JKetelaar\fut\bot\errors\NulledTokenFunction;
 use JKetelaar\fut\bot\web\Parser;
@@ -263,11 +264,14 @@ class Login {
 
         // Check for other responses
         $question = json_decode(json_encode($curl->response), true);
+
+        if ($question['code'] === Comparisons::CAPTCHA_BODY_CODE){
+            throw new CaptchaException();
+        }
+
         if(isset($question[ 'string' ])) {
             if($question[ 'string' ] === Comparisons::ALREADY_LOGGED_IN) {
                 $this->phishingToken = $question[ 'token' ];
-
-                //                return true;
             }
         }
 
