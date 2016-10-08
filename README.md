@@ -29,6 +29,34 @@ function totp_callback() {
 }
 ```
 
+## FAQ
+#### How do the enum(eration)s work?
+As you might have seen, we're using an implemententation of php-enum, so we could provide enumerations within classes and type hinting.
+An example of this is the class `ChemistryStyle`.
+
+With a few constants, you can access the variables, but also use them for type hinting.
+Let's say you have:
+```
+class ChemistryStyle extends Enum  {
+    const BASIC = 250;
+    const SNIPER = 251;
+}
+```
+Now we can get the values of the constants, by doing: `ChemistryStyle::BASIC`.
+
+But in a more advanced level, we can also use these for type hinting, using parenthesises.
+Say we have the function:
+```
+function findByChemistryStyle(ChemistryStyle $style){
+    echo('Searching for players with style ID' . $style);
+}
+```
+As you can see, we have a parameter, which only allows ChemistryStyle.
+We can call this function using the constant and adding an opening-and-closing parenthesis:
+```
+findByChemistryStyle(ChemistryStyle::SNIPER())
+```
+
 ### Credits
 * [Lorzenzh with fut api](https://github.com/lorenzh/fut-api/)
 * [Trydis with FIFA Ultimate Team Toolkit](https://github.com/trydis/FIFA-Ultimate-Team-Toolkit)
