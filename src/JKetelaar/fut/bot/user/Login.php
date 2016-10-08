@@ -53,11 +53,6 @@ class Login {
     private $session;
 
     /**
-     * @var string
-     */
-    private $phishingToken;
-
-    /**
      * Login constructor.
      *
      * @param User   $user
@@ -282,11 +277,22 @@ class Login {
 
         if(isset($question[ 'string' ])) {
             if($question[ 'string' ] === Comparisons::ALREADY_LOGGED_IN) {
-                $this->phishingToken = $question[ 'token' ];
+                $this->setForFutureRequests($question['token']);
+                return true;
             }
         }
 
         return $this->validate();
+    }
+
+    private function setForFutureRequests($token){
+        $headers = [
+            'X-UT-PHISHING-TOKEN' => $token,
+            'X-HTTP-Method-Override' => 'GET',
+            Configuration::X_UT_ROUTE_PARAM => 'https://' . explode(':', $this->session['ipPort'])[0],
+            'x-flash-version' => '20,0,0,272'
+        ];
+        $this->user->setHeaders($headers);
     }
 
     public function validate() {
@@ -305,6 +311,7 @@ class Login {
         $debug = json_decode($this->curl->response, true);
         if(isset($debug[ 'debug' ])) {
             if($debug[ 'debug' ] === Comparisons::CORRECT_ANSWER) {
+                $this->setForFutureRequests($debug['token']);
                 return true;
             }
         }

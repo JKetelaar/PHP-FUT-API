@@ -6,9 +6,13 @@
 namespace JKetelaar\fut\bot\market;
 
 use Curl\Curl;
+use JKetelaar\fut\bot\config\Configuration;
+use JKetelaar\fut\bot\config\URL;
+use JKetelaar\fut\bot\errors\market\IncorrectEndpoint;
 use JKetelaar\fut\bot\errors\market\IncorrectHeaders;
 use JKetelaar\fut\bot\errors\market\MarketError;
 use JKetelaar\fut\bot\errors\market\UnknownEndpoint;
+use JKetelaar\fut\bot\errors\market\UnparsableEndpoint;
 use JKetelaar\fut\bot\user\User;
 
 class Handler {
@@ -34,18 +38,50 @@ class Handler {
         $this->user = $user;
     }
 
+    public function getCredits(){
+        $result = $this->sendRequest(URL::API_CREDITS);
+        if (isset($result['credits'])){
+            return $result['credits'];
+        }
+
+        return null;
+    }
+
+    public function getCurrencies(){
+        $result = $this->sendRequest(URL::API_CREDITS);
+        if (isset($result['currencies'])){
+            return $result['currencies'];
+        }
+        return null;
+    }
+
     /**
      * @param string $url
      * @param array  $data
      * @param null   $headers
      *
-     * @return string|bool|array|null
+     * @return array|bool|null|string
+     * @throws IncorrectEndpoint
      * @throws IncorrectHeaders
      * @throws MarketError
      * @throws UnknownEndpoint
+     * @throws UnparsableEndpoint
      */
     public function sendRequest($url, $data = [], $headers = null) {
         $curl = &$this->curl;
+
+        foreach($this->user->getHeaders() as $key => $header) {
+            $curl->setHeader($key, $header);
+        }
+
+        if(filter_var($url, FILTER_VALIDATE_URL) !== false) {
+            throw new IncorrectEndpoint($url);
+        } else {
+            $url = $this->user->getHeaders()[ Configuration::X_UT_ROUTE_PARAM ] . $url;
+            if(filter_var($url, FILTER_VALIDATE_URL) === false) {
+                throw new UnparsableEndpoint($url);
+            }
+        }
 
         if($headers != null && is_array($headers)) {
             if(array_keys($headers) !== range(0, count($headers) - 1)) {
@@ -68,6 +104,6 @@ class Handler {
             throw new UnknownEndpoint($url);
         }
 
-        return $curl->response;
+        return json_decode(json_encode($curl->response), true);
     }
 }

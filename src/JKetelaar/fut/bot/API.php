@@ -89,10 +89,15 @@ class API {
         return null;
     }
 
+    /**
+     * @return Handler
+     */
     public function getHandler() {
         if(($handler = $this->handler) == null) {
             $this->handler = new Handler($this->curl, $this->user);
         }
+
+        return $this->handler;
     }
 
     public function login($path = DATA_DIR . '/cookies.txt') {
