@@ -359,8 +359,4 @@ class Login {
             throw new NulledTokenFunction();
         }
     }
-
-    public function hash() {
-
-    }
 }
