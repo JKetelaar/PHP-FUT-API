@@ -23,7 +23,7 @@ if ($api->login()){
 }
 
 function totp_callback() {
-    $totp = new \OTPHP\TOTP('FIFA', 'KXVY7VWMX2IMLDIM');
+    $totp = new \OTPHP\TOTP('FIFA', 'SECRET');
 
     return $totp->now();
 }
