@@ -13,6 +13,7 @@ use JKetelaar\fut\bot\errors\market\IncorrectHeaders;
 use JKetelaar\fut\bot\errors\market\MarketError;
 use JKetelaar\fut\bot\errors\market\UnknownEndpoint;
 use JKetelaar\fut\bot\errors\market\UnparsableEndpoint;
+use JKetelaar\fut\bot\market\handler\Method;
 use JKetelaar\fut\bot\user\User;
 
 class Handler {
@@ -49,6 +50,7 @@ class Handler {
 
     /**
      * @param string $url
+     * @param Method $method
      * @param array  $data
      * @param null   $headers
      *
@@ -59,7 +61,7 @@ class Handler {
      * @throws UnknownEndpoint
      * @throws UnparsableEndpoint
      */
-    public function sendRequest($url, $data = [], $headers = null) {
+    public function sendRequest($url, Method $method = Method::GET, $data = [], $headers = null) {
         $curl = &$this->curl;
 
         foreach($this->user->getHeaders() as $key => $header) {
@@ -85,7 +87,7 @@ class Handler {
             }
         }
 
-        $curl->setHeader('X-HTTP-Method-Override', 'GET');
+        $curl->setHeader('X-HTTP-Method-Override', $method);
         $curl->post($url, $data);
 
         if($curl->error) {
