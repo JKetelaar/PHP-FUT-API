@@ -28,3 +28,7 @@ function totp_callback() {
     return $totp->now();
 }
 ```
+
+### Credits
+* [Lorzenzh with fut api](https://github.com/lorenzh/fut-api/)
+* [Trydis with FIFA Ultimate Team Toolkit](https://github.com/trydis/FIFA-Ultimate-Team-Toolkit)
