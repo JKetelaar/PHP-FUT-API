@@ -5,6 +5,7 @@
 
 namespace JKetelaar\fut\bot;
 
+use Curl\Curl;
 use JKetelaar\fut\bot\errors\NonExistingTokenFunction;
 use JKetelaar\fut\bot\errors\UnknownPlatform;
 use JKetelaar\fut\bot\user\Login;
@@ -25,6 +26,11 @@ class API {
      * @var string
      */
     private $platform;
+
+    /**
+     * @var Curl
+     */
+    private $curl;
 
     /**
      * API constructor.
@@ -88,7 +94,11 @@ class API {
             $this->login = new Login($this->user, $path);
         }
 
-        return $this->login->login();
+        if (($result = $this->login->login()) === true){
+            $this->curl = $this->login->getCurl();
+        }
+
+        return $result;
     }
 
 }

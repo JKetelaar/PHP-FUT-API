@@ -86,16 +86,22 @@ class Login {
     }
 
     public function login() {
-        if(($loginURL = $this->requestMain()) !== true) {
-            if(strlen($loginURL) > 3) {
+        $result = false;
+        if(($resultMain = $this->requestMain()) != null) {
+            if( ! is_bool($resultMain)) {
+                $codeURL = $this->postLoginForm($resultMain);
 
-                $codeURL = $this->postLoginForm($loginURL);
-
-                return $this->postTwoFactorForm($codeURL);
+                $result = $this->postTwoFactorForm($codeURL);
+            } else {
+                $result = $resultMain;
             }
         }
 
-        return true;
+        if( ! is_bool($result)) {
+            throw new MainLogin(298175, 'Unknown result given by flow');
+        }
+
+        return $result;
     }
 
     private function requestMain() {
@@ -265,8 +271,10 @@ class Login {
         // Check for other responses
         $question = json_decode(json_encode($curl->response), true);
 
-        if ($question['code'] === Comparisons::CAPTCHA_BODY_CODE){
-            throw new CaptchaException();
+        if(isset($question[ 'code' ])) {
+            if($question[ 'code' ] === Comparisons::CAPTCHA_BODY_CODE) {
+                throw new CaptchaException();
+            }
         }
 
         if(isset($question[ 'string' ])) {
@@ -349,7 +357,7 @@ class Login {
             $title    = Parser::getDocumentTitle($document);
 
             if($title === Comparisons::LOGGED_IN_TITLE) {
-                $this->getFUTPage();
+                return $this->getFUTPage();
             } elseif($title === Comparisons::MAIN_LOGIN_TITLE) {
                 throw new MainLogin(285719, 'Could not login');
             } elseif($title === Comparisons::LOGIN_FORM_TITLE) {
@@ -362,5 +370,12 @@ class Login {
         } else {
             throw new NulledTokenFunction();
         }
+    }
+
+    /**
+     * @return Curl
+     */
+    public function getCurl() {
+        return $this->curl;
     }
 }
