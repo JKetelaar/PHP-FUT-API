@@ -117,16 +117,16 @@ class User {
     }
 
     /**
-     * @param mixed $headers
-     */
-    public function setHeaders($headers) {
-        $this->headers = $headers;
-    }
-
-    /**
      * @return mixed
      */
     public function getHeaders() {
         return $this->headers;
+    }
+
+    /**
+     * @param mixed $headers
+     */
+    public function setHeaders($headers) {
+        $this->headers = $headers;
     }
 }

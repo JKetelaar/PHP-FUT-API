@@ -38,20 +38,12 @@ class Handler {
         $this->user = $user;
     }
 
-    public function getCredits(){
+    public function getCredits() {
         $result = $this->sendRequest(URL::API_CREDITS);
-        if (isset($result['credits'])){
-            return $result['credits'];
+        if(isset($result[ 'credits' ])) {
+            return $result[ 'credits' ];
         }
 
-        return null;
-    }
-
-    public function getCurrencies(){
-        $result = $this->sendRequest(URL::API_CREDITS);
-        if (isset($result['currencies'])){
-            return $result['currencies'];
-        }
         return null;
     }
 
@@ -105,5 +97,22 @@ class Handler {
         }
 
         return json_decode(json_encode($curl->response), true);
+    }
+
+    public function getCurrencies() {
+        $result = $this->sendRequest(URL::API_CREDITS);
+        if(isset($result[ Currency::TAG ])) {
+            $currencies = [];
+
+            foreach($result[ Currency::TAG ] as $currency) {
+                $currencies[] = new Currency(
+                    $currency[ 'name' ], $currency[ 'funds' ], $currency[ 'finalFunds' ]
+                );
+            }
+
+            return $currencies;
+        }
+
+        return null;
     }
 }
