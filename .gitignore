@@ -1,7 +1,7 @@
-data/cookies.txt
-vendor
-node_modules
-test.php
-composer.lock
-.idea
-package.json
+/data/cookies.txt
+/vendor
+/node_modules
+/test.php
+/composer.lock
+/.idea
+/package.json
