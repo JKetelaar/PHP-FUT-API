@@ -7,7 +7,7 @@ No wait, let's first answer a question
 **N:** Great! Welcome to the perfect PHP FUT Bot :smirk:
 
 ## How to install?
-Well you need Node first, install that!
+Well you need Node first, [install that](https://nodejs.org/en/download/)!
 
 Now download this project and start using:
 ```
