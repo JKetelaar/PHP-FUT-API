@@ -13,7 +13,6 @@ use JKetelaar\fut\bot\config\URL;
 use JKetelaar\fut\bot\errors\login\MainLogin;
 use JKetelaar\fut\bot\errors\NulledTokenFunction;
 use JKetelaar\fut\bot\web\Parser;
-use simplehtmldom_1_5\simple_html_dom;
 
 class Login {
 
@@ -43,6 +42,11 @@ class Login {
      * @var array
      */
     private $persona;
+
+    /**
+     * @var array
+     */
+    private $session;
 
     /**
      * Login constructor.
@@ -200,7 +204,7 @@ class Login {
                 throw new MainLogin(281625, 'Could not find a fitting persona');
             }
         } else {
-            throw new MainLogin(281725, 'Provided personas are incorrect');
+            throw new MainLogin(281725, 'Provided persona\'s are incorrect');
         }
     }
 
@@ -222,9 +226,41 @@ class Login {
             throw new MainLogin($curl->errorCode, $curl->errorMessage);
         }
 
-        $data = json_decode(json_encode($curl->response), true);
-        var_dump($data);
+        $data          = json_decode(json_encode($curl->response), true);
+        $this->session = $data;
+
+        $this->phishing();
+    }
+
+    private function phishing() {
+        $curl = &$this->curl;
+        $curl->setHeader('X-UT-SID', $this->session[ 'sid' ]);
+
+        $curl->get(URL::LOGIN_QUESTION);
+
+        if($curl->error) {
+            throw new MainLogin($curl->errorCode, $curl->errorMessage);
+        }
+
+        // Check for other responses
+        $question = json_decode(json_encode($curl->response));
+
+        $this->validate();
         die();
+    }
+
+    public function validate() {
+        exec(NODE_LOCATION . ' "' . DATA_DIR . '../js/index.js" ' . $this->user->getSecret(), $output);
+        if(isset($output[ 0 ]) && strlen($output[ 0 ]) == 32) {
+            $curl = $this->setupCurl();
+            $curl->post(URL::LOGIN_VALIDATE, [ 'answer' => $output[ 0 ] ]);
+        }
+
+        if($this->curl->error) {
+            throw new MainLogin($this->curl->errorCode, $this->curl->errorMessage);
+        }
+
+        var_dump($this->curl->response);
     }
 
     private function postLoginForm($url) {
@@ -289,5 +325,9 @@ class Login {
         } else {
             throw new NulledTokenFunction();
         }
+    }
+
+    public function hash() {
+
     }
 }
