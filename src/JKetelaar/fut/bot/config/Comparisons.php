@@ -12,5 +12,6 @@ class Comparisons {
     const NO_AUTHENTICATOR_FORM_TITLE = 'Set Up an App Authenticator';
     const LOGGED_IN_TITLE             = 'FIFA Football | FUT Web App | EA SPORTS';
     const ALREADY_LOGGED_IN           = 'Already answered question';
+    const CORRECT_ANSWER              = 'Answer is correct.';
 
 }

@@ -261,7 +261,7 @@ class Login {
             if($question[ 'string' ] === Comparisons::ALREADY_LOGGED_IN) {
                 $this->phishingToken = $question[ 'token' ];
 
-                return true;
+                //                return true;
             }
         }
 
@@ -281,7 +281,13 @@ class Login {
             throw new MainLogin($this->curl->errorCode, $this->curl->errorMessage);
         }
 
-        var_dump($this->curl->response);
+        $debug = json_decode($this->curl->response, true);
+        if(isset($debug[ 'debug' ])) {
+            if($debug[ 'debug' ] === Comparisons::CORRECT_ANSWER) {
+                return true;
+            }
+        }
+        throw new MainLogin(2856162, 'Could not login with secret');
     }
 
     private function postLoginForm($url) {
