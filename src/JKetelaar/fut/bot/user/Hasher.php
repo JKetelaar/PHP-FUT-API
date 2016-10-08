@@ -143,37 +143,28 @@ class Hasher {
 
     private static function cmn($q, $a, $b, $x, $s, $t) {
         $result = self::bitwiseRotate(self::add(self::add($a, $q), self::add($x, $t)), $s);
-        return self::add($result, $b);
-    }
 
-    private static function add($x, $y) {
-        $lsw = ($x & 0xFFFF) + ($y & 0xFFFF);
-        $msw = ($x >> 16) + ($y >> 16) + ($lsw >> 16);
-        $s =  (self::_32bitleftshift($msw, 16)) | ($lsw & 0xFFFF);
-        return $s;
+        return self::add($result, $b);
     }
 
     private static function bitwiseRotate($x, $c) {
         $s = self::_32bitleftshift($x, $c);
+
         return $s | (self::zeroFill($x, (32 - $c)));
     }
 
-    private static function _32bitleftshift($number, $steps)
-    {
-        $binary = decbin($number).str_repeat("0", $steps);
+    private static function _32bitleftshift($number, $steps) {
+        $binary = decbin($number) . str_repeat("0", $steps);
         $binary = str_pad($binary, 32, "0", STR_PAD_LEFT);
         $binary = substr($binary, strlen($binary) - 32);
-        if ($binary{0} == "1")
-        {
+        if($binary{0} == "1") {
             return -(pow(2, 31) - bindec(substr($binary, 1)));
-        }
-        else
-        {
+        } else {
             return bindec($binary);
         }
     }
 
-    private static function zeroFill($a,$b) {
+    private static function zeroFill($a, $b) {
         if($a >= 0) {
             return $a >> $b;
         }
@@ -184,7 +175,15 @@ class Hasher {
         return ((~$a) >> $b) ^ (0x7fffffff >> ($b - 1));
     }
 
-        private static function md5_g($a, $b, $c, $d, $x, $s, $t) {
+    private static function add($x, $y) {
+        $lsw = ($x & 0xFFFF) + ($y & 0xFFFF);
+        $msw = ($x >> 16) + ($y >> 16) + ($lsw >> 16);
+        $s   = (self::_32bitleftshift($msw, 16)) | ($lsw & 0xFFFF);
+
+        return $s;
+    }
+
+    private static function md5_g($a, $b, $c, $d, $x, $s, $t) {
         return self::cmn(($b & $d) | ((~$b) & $d), $a, $b, $x, $s, $t);
     }
 

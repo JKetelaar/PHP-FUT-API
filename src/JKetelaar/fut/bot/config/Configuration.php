@@ -34,13 +34,13 @@ class Configuration {
     ];
 
     const DEFAULT_SESSION_FORM_DATA = [
-        'isReadOnly' => false,
-        'sku' => 'FUT17WEB',
-        'clientVersion' => 1,
-        'locale' => 'en-GB',
-        'method' => 'authcode',
-        'priorityLevel' => 4,
-        'identification' => ['authCode' => '']
+        'isReadOnly'     => false,
+        'sku'            => 'FUT17WEB',
+        'clientVersion'  => 1,
+        'locale'         => 'en-GB',
+        'method'         => 'authcode',
+        'priorityLevel'  => 4,
+        'identification' => [ 'authCode' => '' ],
     ];
 
     // HTML Classes

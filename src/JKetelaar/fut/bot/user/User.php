@@ -92,7 +92,7 @@ class User {
         return $this->platform;
     }
 
-    public function getCachedToken(){
+    public function getCachedToken() {
         return $this->token;
     }
 
@@ -101,6 +101,7 @@ class User {
             $func = $this->tokenFunction;
             if(($token = $func()) != null) {
                 $this->token = $token;
+
                 return $this->token;
             } else {
                 throw new NulledTokenFunction();

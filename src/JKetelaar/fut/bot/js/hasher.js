@@ -9,6 +9,7 @@ var hasher = (function () {
         this.r4Shifts = [6, 10, 15, 21, 6, 10, 15, 21, 6, 10, 15, 21, 6, 10, 15, 21];
         this.hex_chr = "0123456789abcdef";
     }
+
     hasher.prototype.md5 = function (str) {
         var that = this;
         var x = that.chunkMessage(str);
@@ -138,4 +139,6 @@ var hasher = (function () {
     };
     return hasher;
 })();
-module.exports = function (value) { return new hasher().md5(value); };
+module.exports = function (value) {
+    return new hasher().md5(value);
+};
