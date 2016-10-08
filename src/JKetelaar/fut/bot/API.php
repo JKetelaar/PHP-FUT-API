@@ -87,7 +87,7 @@ class API {
         if($this->login == null) {
             $this->login = new Login($this->user);
         }
-        $this->login->login();
+        return $this->login->login();
     }
 
 }
