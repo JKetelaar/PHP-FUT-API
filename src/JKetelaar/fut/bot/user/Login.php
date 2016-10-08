@@ -16,12 +16,15 @@ use JKetelaar\fut\bot\web\Parser;
 
 class Login {
 
-    const COOKIE_FILE = '';
-
     /**
      * @var Curl
      */
     private $curl;
+
+    /**
+     * @var string Path to cookies file
+     */
+    private $path;
 
     /**
      * @var User
@@ -56,10 +59,12 @@ class Login {
     /**
      * Login constructor.
      *
-     * @param User $user
+     * @param User   $user
+     * @param string $path
      */
-    public function __construct(User $user) {
+    public function __construct(User $user, $path) {
         $this->user = $user;
+        $this->path = $path;
         $this->curl = $this->setupCurl();
     }
 
@@ -73,8 +78,8 @@ class Login {
         $curl->setHeader('Accept', Configuration::HEADER_ACCEPT);
         $curl->setHeader('DNT', Configuration::HEADER_DNT);
         $curl->setUserAgent(Configuration::HEADER_USER_AGENT);
-        $curl->setCookieFile(DATA_DIR . '/cookies.txt');
-        $curl->setCookieJar(DATA_DIR . '/cookies.txt');
+        $curl->setCookieFile($this->path);
+        $curl->setCookieJar($this->path);
 
         return $curl;
     }
@@ -178,6 +183,7 @@ class Login {
     /**
      * @param null $shards
      *
+     * @return bool
      * @throws MainLogin
      */
     private function getAccountInformation($shards = null) {
@@ -269,7 +275,7 @@ class Login {
     }
 
     public function validate() {
-        exec(NODE_LOCATION . ' "' . DATA_DIR . '../js/index.js" ' . $this->user->getSecret(), $output);
+        exec(NODE_LOCATION . ' "' . __DIR__ . '/../js/index.js" ' . $this->user->getSecret(), $output);
         if(isset($output[ 0 ]) && strlen($output[ 0 ]) == 32) {
             $this->curl->setHeader('Content-Type', 'application/x-www-form-urlencoded');
             $this->curl->setHeader('X-UT-SID', $this->session[ 'sid' ]);

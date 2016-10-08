@@ -83,9 +83,9 @@ class API {
         return null;
     }
 
-    public function login() {
+    public function login($path = DATA_DIR . '/cookies.txt') {
         if($this->login == null) {
-            $this->login = new Login($this->user);
+            $this->login = new Login($this->user, $path);
         }
         return $this->login->login();
     }
