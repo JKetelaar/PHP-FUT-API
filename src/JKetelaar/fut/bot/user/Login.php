@@ -70,6 +70,9 @@ class Login {
     }
 
     private function setupCurl() {
+        // Some pages are more than 2MB, so we have to reserve some extra space
+        define('MAX_FILE_SIZE', 5 * 1000 * 1000);
+
         $curl = new Curl();
 
         $curl->setOpt(CURLOPT_FOLLOWLOCATION, true);

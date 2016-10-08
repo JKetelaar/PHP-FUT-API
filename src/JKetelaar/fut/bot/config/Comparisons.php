@@ -13,6 +13,6 @@ abstract class Comparisons {
     const LOGGED_IN_TITLE             = 'FIFA Football | FUT Web App | EA SPORTS';
     const ALREADY_LOGGED_IN           = 'Already answered question';
     const CORRECT_ANSWER              = 'Answer is correct.';
-    const CAPTCHA_BODY_CODE = 459;
+    const CAPTCHA_BODY_CODE           = 459;
 
 }
