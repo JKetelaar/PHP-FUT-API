@@ -49,6 +49,11 @@ class Login {
     private $session;
 
     /**
+     * @var string
+     */
+    private $phishingToken;
+
+    /**
      * Login constructor.
      *
      * @param User $user
@@ -75,10 +80,16 @@ class Login {
     }
 
     public function login() {
-        $loginURL = $this->requestMain();
-        $codeURL  = $this->postLoginForm($loginURL);
-        $this->postTwoFactorForm($codeURL);
+        if(($loginURL = $this->requestMain()) !== true) {
+            if(strlen($loginURL) > 3) {
 
+                $codeURL = $this->postLoginForm($loginURL);
+
+                return $this->postTwoFactorForm($codeURL);
+            }
+        }
+
+        return true;
     }
 
     private function requestMain() {
@@ -91,8 +102,7 @@ class Login {
         $title    = Parser::getDocumentTitle($document);
 
         if($this->isLoggedInPage($title)) {
-            $this->getFUTPage();
-            die('');
+            return $this->getFUTPage();
         }
 
         if(Parser::getDocumentTitle($document) === Comparisons::MAIN_LOGIN_TITLE) {
@@ -116,7 +126,8 @@ class Login {
         preg_match('/EASW_ID\W*=\W*\'(\d*)\'/', $this->curl->response, $matches);
         if(sizeof($matches > 1) && ($id = $matches[ 1 ]) != null) {
             $this->nucleusId = $id;
-            $this->getShards($id);
+
+            return $this->getShards($id);
         } else {
             throw new MainLogin(295717, 'Could not find EAWS ID');
         }
@@ -154,7 +165,8 @@ class Login {
                         }
                     }
                 }
-                $this->getAccountInformation();
+
+                return $this->getAccountInformation();
             } else {
                 throw new \Exception(289684, 'Could not decode shards');
             }
@@ -199,7 +211,8 @@ class Login {
             }
             if($p != null) {
                 $this->persona = $p;
-                $this->getSession();
+
+                return $this->getSession();
             } else {
                 throw new MainLogin(281625, 'Could not find a fitting persona');
             }
@@ -229,7 +242,7 @@ class Login {
         $data          = json_decode(json_encode($curl->response), true);
         $this->session = $data;
 
-        $this->phishing();
+        return $this->phishing();
     }
 
     private function phishing() {
@@ -243,17 +256,25 @@ class Login {
         }
 
         // Check for other responses
-        $question = json_decode(json_encode($curl->response));
+        $question = json_decode(json_encode($curl->response), true);
+        if(isset($question[ 'string' ])) {
+            if($question[ 'string' ] === Comparisons::ALREADY_LOGGED_IN) {
+                $this->phishingToken = $question[ 'token' ];
 
-        $this->validate();
-        die();
+                return true;
+            }
+        }
+
+        return $this->validate();
     }
 
     public function validate() {
         exec(NODE_LOCATION . ' "' . DATA_DIR . '../js/index.js" ' . $this->user->getSecret(), $output);
         if(isset($output[ 0 ]) && strlen($output[ 0 ]) == 32) {
-            $curl = $this->setupCurl();
-            $curl->post(URL::LOGIN_VALIDATE, [ 'answer' => $output[ 0 ] ]);
+            $this->curl->setHeader('Content-Type', 'application/x-www-form-urlencoded');
+            $this->curl->setHeader('X-UT-SID', $this->session[ 'sid' ]);
+
+            $this->curl->post(URL::LOGIN_VALIDATE, [ 'answer' => $output[ 0 ] ]);
         }
 
         if($this->curl->error) {
