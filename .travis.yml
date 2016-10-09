@@ -11,6 +11,10 @@ before_install:
 
 install:
   - travis_retry composer install --no-interaction --prefer-source
+  - . $HOME/.nvm/nvm.sh
+  - nvm install stable
+  - nvm use stable
+  - npm install
 
 script:
   - phpunit
