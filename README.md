@@ -2,7 +2,7 @@
 
 # The perfect PHP FUT Bot
 This is a perfect FUT Bo...   
-No wait, let's first answer a question
+No wait, let's first answer a question.
 
 **Are you an EA employee?**  
 **Y:** This is nothing, just leave...  
