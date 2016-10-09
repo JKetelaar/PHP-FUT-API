@@ -46,8 +46,8 @@ class Handler {
             $auctions[] = Trade::toObject($auction);
         }
         echo('<pre>');
-        var_dump($request);
-        echo('</pre>');
+//        var_dump($request);
+//        echo('</pre>');
 
         return $auctions;
     }
