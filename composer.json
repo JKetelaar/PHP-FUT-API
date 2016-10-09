@@ -8,6 +8,7 @@
       "homepage": "http://jketelaar.nl/"
     }
   ],
+  "description": "Allows you to interact with the FUT using PHP",
   "keywords": [
     "fut",
     "bot",
