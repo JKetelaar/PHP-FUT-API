@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/JKetelaar/PHP-FUT-API.svg?branch=master)](https://travis-ci.org/JKetelaar/PHP-FUT-API)
+
 # The perfect PHP FUT Bot
 This is a perfect FUT Bo...   
 No wait, let's first answer a question
