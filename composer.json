@@ -1,5 +1,5 @@
 {
-  "name": "jketelaar/fut-bot",
+  "name": "jketelaar/php-fut-bot",
   "type": "library",
   "authors": [
     {
@@ -20,7 +20,9 @@
   "require": {
     "php": "^5.5 || ^7.0",
     "php-curl-class/php-curl-class": "^7.0",
-    "sunra/php-simple-html-dom-parser": "^1.5"
+    "sunra/php-simple-html-dom-parser": "^1.5",
+    "spomky-labs/otphp": "^8.2",
+    "myclabs/php-enum": "^1.4"
   },
   "autoload": {
     "psr-0": {

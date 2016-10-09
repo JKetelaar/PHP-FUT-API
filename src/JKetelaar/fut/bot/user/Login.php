@@ -10,6 +10,7 @@ use JKetelaar\fut\bot\API;
 use JKetelaar\fut\bot\config\Comparisons;
 use JKetelaar\fut\bot\config\Configuration;
 use JKetelaar\fut\bot\config\URL;
+use JKetelaar\fut\bot\errors\CaptchaException;
 use JKetelaar\fut\bot\errors\login\MainLogin;
 use JKetelaar\fut\bot\errors\NulledTokenFunction;
 use JKetelaar\fut\bot\web\Parser;
@@ -52,11 +53,6 @@ class Login {
     private $session;
 
     /**
-     * @var string
-     */
-    private $phishingToken;
-
-    /**
      * Login constructor.
      *
      * @param User   $user
@@ -69,6 +65,9 @@ class Login {
     }
 
     private function setupCurl() {
+        // Some pages are more than 2MB, so we have to reserve some extra space
+        define('MAX_FILE_SIZE', 5 * 1000 * 1000);
+
         $curl = new Curl();
 
         $curl->setOpt(CURLOPT_FOLLOWLOCATION, true);
@@ -85,16 +84,22 @@ class Login {
     }
 
     public function login() {
-        if(($loginURL = $this->requestMain()) !== true) {
-            if(strlen($loginURL) > 3) {
+        $result = false;
+        if(($resultMain = $this->requestMain()) != null) {
+            if( ! is_bool($resultMain)) {
+                $codeURL = $this->postLoginForm($resultMain);
 
-                $codeURL = $this->postLoginForm($loginURL);
-
-                return $this->postTwoFactorForm($codeURL);
+                $result = $this->postTwoFactorForm($codeURL);
+            } else {
+                $result = $resultMain;
             }
         }
 
-        return true;
+        if( ! is_bool($result)) {
+            throw new MainLogin(298175, 'Unknown result given by flow');
+        }
+
+        return $result;
     }
 
     private function requestMain() {
@@ -263,15 +268,32 @@ class Login {
 
         // Check for other responses
         $question = json_decode(json_encode($curl->response), true);
+
+        if(isset($question[ 'code' ])) {
+            if($question[ 'code' ] === Comparisons::CAPTCHA_BODY_CODE) {
+                throw new CaptchaException();
+            }
+        }
+
         if(isset($question[ 'string' ])) {
             if($question[ 'string' ] === Comparisons::ALREADY_LOGGED_IN) {
-                $this->phishingToken = $question[ 'token' ];
+                $this->setForFutureRequests($question[ 'token' ]);
 
-                //                return true;
+                return true;
             }
         }
 
         return $this->validate();
+    }
+
+    private function setForFutureRequests($token) {
+        $headers = [
+            'X-UT-PHISHING-TOKEN'           => $token,
+            'X-HTTP-Method-Override'        => 'GET',
+            Configuration::X_UT_ROUTE_PARAM => 'https://' . explode(':', $this->session[ 'ipPort' ])[ 0 ],
+            'x-flash-version'               => '20,0,0,272',
+        ];
+        $this->user->setHeaders($headers);
     }
 
     public function validate() {
@@ -290,6 +312,8 @@ class Login {
         $debug = json_decode($this->curl->response, true);
         if(isset($debug[ 'debug' ])) {
             if($debug[ 'debug' ] === Comparisons::CORRECT_ANSWER) {
+                $this->setForFutureRequests($debug[ 'token' ]);
+
                 return true;
             }
         }
@@ -345,7 +369,7 @@ class Login {
             $title    = Parser::getDocumentTitle($document);
 
             if($title === Comparisons::LOGGED_IN_TITLE) {
-                $this->getFUTPage();
+                return $this->getFUTPage();
             } elseif($title === Comparisons::MAIN_LOGIN_TITLE) {
                 throw new MainLogin(285719, 'Could not login');
             } elseif($title === Comparisons::LOGIN_FORM_TITLE) {
@@ -360,7 +384,10 @@ class Login {
         }
     }
 
-    public function hash() {
-
+    /**
+     * @return Curl
+     */
+    public function getCurl() {
+        return $this->curl;
     }
 }

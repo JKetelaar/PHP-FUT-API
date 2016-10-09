@@ -5,7 +5,7 @@
 
 namespace JKetelaar\fut\bot\config;
 
-class URL {
+abstract class URL {
     const REFERER = 'https://www.easports.com/iframe/fut17/?locale=en_US&baseShowoffUrl=https%3A%2F%2Fwww.easports.com%2Fde%2Ffifa%2Fultimate-team%2Fweb-app%2Fshow-off&guest_app_uri=http%3A%2F%2Fwww.easports.com%2Fde%2Ffifa%2Fultimate-team%2Fweb-app';
 
     // Login URLs

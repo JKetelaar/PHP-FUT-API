@@ -41,6 +41,11 @@ class User {
     private $platform;
 
     /**
+     * @var
+     */
+    private $headers;
+
+    /**
      * User constructor.
      *
      * @param string $username
@@ -109,5 +114,19 @@ class User {
         } else {
             throw new NonExistingTokenFunction();
         }
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getHeaders() {
+        return $this->headers;
+    }
+
+    /**
+     * @param mixed $headers
+     */
+    public function setHeaders($headers) {
+        $this->headers = $headers;
     }
 }

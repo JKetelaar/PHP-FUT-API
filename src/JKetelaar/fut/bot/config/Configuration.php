@@ -5,7 +5,7 @@
 
 namespace JKetelaar\fut\bot\config;
 
-class Configuration {
+abstract class Configuration {
     const FUT_YEAR = 2017;
 
     // Headers
@@ -18,6 +18,8 @@ class Configuration {
     const X_UT_EMBED_ERROR       = true;
     const X_UT_ROUTE             = 'https://utas.fut.ea.com';
     const X_REQUESTED_WITH       = 'XMLHttpRequest';
+
+    const X_UT_ROUTE_PARAM = 'X-UT-Route';
 
     // Forms defaults
     const FORM_LOGIN_DEFAULTS = [

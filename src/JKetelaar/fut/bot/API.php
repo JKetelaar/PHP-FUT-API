@@ -5,8 +5,10 @@
 
 namespace JKetelaar\fut\bot;
 
+use Curl\Curl;
 use JKetelaar\fut\bot\errors\NonExistingTokenFunction;
 use JKetelaar\fut\bot\errors\UnknownPlatform;
+use JKetelaar\fut\bot\market\Handler;
 use JKetelaar\fut\bot\user\Login;
 use JKetelaar\fut\bot\user\User;
 
@@ -22,9 +24,14 @@ class API {
     private $login;
 
     /**
-     * @var string
+     * @var Curl
      */
-    private $platform;
+    private $curl;
+
+    /**
+     * @var Handler
+     */
+    private $handler;
 
     /**
      * API constructor.
@@ -39,8 +46,7 @@ class API {
      * @throws UnknownPlatform
      */
     public function __construct($username, $password, $secret, $token_function, $platform) {
-        define('MAX_FILE_SIZE', 5 * 1000 * 1000);
-        if(($this->platform = self::getPlatform($platform)) == null) {
+        if(self::getPlatform($platform) == null) {
             throw new UnknownPlatform();
         }
 
@@ -83,12 +89,27 @@ class API {
         return null;
     }
 
+    /**
+     * @return Handler
+     */
+    public function getHandler() {
+        if(($handler = $this->handler) == null) {
+            $this->handler = new Handler($this->curl, $this->user);
+        }
+
+        return $this->handler;
+    }
+
     public function login($path = DATA_DIR . '/cookies.txt') {
         if($this->login == null) {
             $this->login = new Login($this->user, $path);
         }
 
-        return $this->login->login();
+        if(($result = $this->login->login()) === true) {
+            $this->curl = $this->login->getCurl();
+        }
+
+        return $result;
     }
 
 }
