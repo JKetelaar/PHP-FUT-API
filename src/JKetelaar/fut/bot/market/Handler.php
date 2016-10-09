@@ -14,6 +14,7 @@ use JKetelaar\fut\bot\errors\market\MarketError;
 use JKetelaar\fut\bot\errors\market\UnknownEndpoint;
 use JKetelaar\fut\bot\errors\market\UnparsableEndpoint;
 use JKetelaar\fut\bot\market\handler\Method;
+use JKetelaar\fut\bot\market\trading\Trade;
 use JKetelaar\fut\bot\user\User;
 
 class Handler {
@@ -39,13 +40,20 @@ class Handler {
         $this->user = $user;
     }
 
-    public function getCredits() {
-        $result = $this->sendRequest(URL::API_CREDITS);
-        if(isset($result[ 'credits' ])) {
-            return $result[ 'credits' ];
+    public function getTradepile() {
+        $auctions = [];
+        foreach(($request = $this->sendRequest(URL::API_TRADEPILE)[ 'auctionInfo' ]) as $auction) {
+            $auctions[] = Trade::toObject($auction);
         }
+        echo('<pre>');
+        var_dump($request);
+        echo('</pre>');
 
-        return null;
+        return $auctions;
+    }
+
+    public function getWatchlist(){
+        var_dump($this->sendRequest(URL::API_WATCHLIST));
     }
 
     /**
@@ -61,7 +69,11 @@ class Handler {
      * @throws UnknownEndpoint
      * @throws UnparsableEndpoint
      */
-    public function sendRequest($url, Method $method = Method::GET, $data = [], $headers = null) {
+    public function sendRequest($url, Method $method = null, $data = [], $headers = null) {
+        if($method === null) {
+            $method = Method::GET();
+        }
+
         $curl = &$this->curl;
 
         foreach($this->user->getHeaders() as $key => $header) {
@@ -99,6 +111,15 @@ class Handler {
         }
 
         return json_decode(json_encode($curl->response), true);
+    }
+
+    public function getCredits() {
+        $result = $this->sendRequest(URL::API_CREDITS);
+        if(isset($result[ 'credits' ])) {
+            return $result[ 'credits' ];
+        }
+
+        return null;
     }
 
     public function getCurrencies() {
