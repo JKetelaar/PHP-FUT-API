@@ -5,7 +5,6 @@
 
 namespace JKetelaar\fut\bot\web;
 
-use JKetelaar\fut\bot\config\Configuration;
 use simplehtmldom_1_5\simple_html_dom;
 use Sunra\PhpSimple\HtmlDomParser;
 

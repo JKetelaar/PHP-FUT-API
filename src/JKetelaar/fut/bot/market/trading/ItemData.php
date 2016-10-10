@@ -6,10 +6,8 @@
 namespace JKetelaar\fut\bot\market\trading;
 
 use JKetelaar\fut\bot\market\items\AbstractItemType;
-use JKetelaar\fut\bot\market\items\misc\ItemState;
 use JKetelaar\fut\bot\market\items\ItemType;
-use JKetelaar\fut\bot\market\items\players\Attributes;
-use JKetelaar\fut\bot\market\items\players\AttributeValue;
+use JKetelaar\fut\bot\market\items\misc\ItemState;
 use JKetelaar\fut\bot\market\items\players\PlayerType;
 use JKetelaar\fut\bot\ResultParser;
 
