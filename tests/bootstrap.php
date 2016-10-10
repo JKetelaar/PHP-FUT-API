@@ -5,7 +5,6 @@
 
 require_once(__DIR__ . '/../vendor/autoload.php');
 
-define('NODE_LOCATION', '/usr/local/bin/node');
 define('DATA_DIR', (($dir = drush_server_home()) === null ? __DIR__ : $dir) . '/.fut-bot/data/');
 
 if( !file_exists(DATA_DIR)) {

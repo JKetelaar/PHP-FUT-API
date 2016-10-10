@@ -12,9 +12,6 @@ class RequirementsTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testDefinitionLocationsExist() {
-        // Temporarily disabled due incompatibility with
-        // $this->assertTrue(file_exists(NODE_LOCATION));
-
         $this->assertTrue(file_exists(DATA_DIR));
     }
 }
