@@ -6,7 +6,6 @@
 namespace JKetelaar\fut\bot\errors\market;
 
 class IncorrectEndpoint extends \Exception {
-
     /**
      * IncorrectEndpoint constructor.
      *

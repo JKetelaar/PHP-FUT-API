@@ -110,7 +110,7 @@ class Trade implements ResultParser {
      * @return Trade
      */
     public static function toObject($result) {
-        $trade    = new Trade(
+        $trade    = new self(
             $result[ 'tradeId' ],
             $result[ 'tradeState' ],
             $result[ 'buyNowPrice' ],
@@ -171,7 +171,7 @@ class Trade implements ResultParser {
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isWatched() {
         return $this->watched;

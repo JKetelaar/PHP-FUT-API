@@ -56,7 +56,7 @@ class AttributeValue implements ResultParser {
         $index = $result[ 'index' ];
         $value = $result[ 'value' ];
 
-        return new AttributeValue(
+        return new self(
             Attribute::findByValue($index, true), $value
         );
     }

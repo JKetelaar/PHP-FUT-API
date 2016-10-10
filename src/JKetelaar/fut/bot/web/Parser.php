@@ -27,7 +27,7 @@ class Parser {
      */
     public static function getDocumentTitle(simple_html_dom $dom) {
         $head = $dom->find('head');
-        if(sizeof($head) > 0) {
+        if(count($head) > 0) {
             $title = $head[ 0 ]->find('title', 0);
             if($title != null && ($text = $title->innertext) != null) {
                 return $text;

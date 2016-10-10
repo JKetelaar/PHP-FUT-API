@@ -6,7 +6,6 @@
 namespace JKetelaar\fut\bot\errors\login;
 
 class MainLogin extends BaseLoginException {
-
     /**
      * MainLogin constructor.
      *

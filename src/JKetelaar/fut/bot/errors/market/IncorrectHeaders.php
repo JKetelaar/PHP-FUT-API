@@ -6,7 +6,6 @@
 namespace JKetelaar\fut\bot\errors\market;
 
 class IncorrectHeaders extends \Exception {
-
     /**
      * IncorrectHeaders constructor.
      */

@@ -24,8 +24,7 @@ class Attribute extends ImprovedEnum {
      * @return Attribute|null
      */
     public static function findByValue($value, $returnObject = false, $default = null) {
-        /** @noinspection PhpIncompatibleReturnTypeInspection */
+        /* @noinspection PhpIncompatibleReturnTypeInspection */
         return parent::findByValue($value, $returnObject, $default);
     }
-
 }

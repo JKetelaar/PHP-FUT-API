@@ -6,7 +6,6 @@
 namespace Requirements;
 
 class RequirementsTest extends \PHPUnit_Framework_TestCase {
-
     public function testDefinitionsExist() {
         $this->assertTrue(defined('NODE_LOCATION'));
         $this->assertTrue(defined('DATA_DIR'));

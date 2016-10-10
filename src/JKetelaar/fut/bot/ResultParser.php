@@ -6,7 +6,6 @@
 namespace JKetelaar\fut\bot;
 
 interface ResultParser {
-
     /**
      * @param array $result
      *
