@@ -44,6 +44,8 @@ class Handler {
     /**
      * TODO: Still in development, throws errors
      *
+     * @deprecated
+     *
      * @param int $assetId
      *
      * @return ItemData
