@@ -5,9 +5,9 @@
 
 namespace JKetelaar\fut\bot\market\players;
 
-use MyCLabs\Enum\Enum;
+use JKetelaar\fut\bot\ImprovedEnum;
 
-class Attribute extends Enum {
+class Attribute extends ImprovedEnum  {
 
     const PACE = 0;
     const SHOOTING = 1;

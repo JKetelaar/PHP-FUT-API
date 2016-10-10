@@ -60,6 +60,11 @@ class Trade implements ResultParser {
     private $expires;
 
     /**
+     * @var ItemData
+     */
+    private $itemData;
+
+    /**
      * Trade constructor.
      *
      * @param int    $id
@@ -103,7 +108,7 @@ class Trade implements ResultParser {
      * @return Trade
      */
     public static function toObject($result) {
-        return new Trade(
+        $trade = new Trade(
             $result[ 'tradeId' ],
             $result[ 'tradeState' ],
             $result[ 'buyNowPrice' ],
@@ -115,6 +120,10 @@ class Trade implements ResultParser {
             $result[ 'confidenceValue' ],
             $result[ 'expires' ]
         );
+
+        $itemData = new ItemData();
+
+        return $trade;
     }
 
     /**
@@ -185,5 +194,19 @@ class Trade implements ResultParser {
      */
     public function getExpires() {
         return $this->expires;
+    }
+
+    /**
+     * @return ItemData
+     */
+    public function getItemData() {
+        return $this->itemData;
+    }
+
+    /**
+     * @param ItemData $itemData
+     */
+    private function setItemData($itemData) {
+        $this->itemData = $itemData;
     }
 }

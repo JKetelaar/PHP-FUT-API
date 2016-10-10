@@ -5,9 +5,9 @@
 
 namespace JKetelaar\fut\bot\market\players;
 
-use MyCLabs\Enum\Enum;
+use JKetelaar\fut\bot\ImprovedEnum;
 
-class ChemistryStyle extends Enum {
+class ChemistryStyle extends ImprovedEnum  {
     const BASIC      = 250;
     const SNIPER     = 251;
     const FINISHER   = 252;

@@ -5,7 +5,9 @@
 
 namespace JKetelaar\fut\bot\market\items;
 
-class InjuryType {
+use JKetelaar\fut\bot\ImprovedEnum;
+
+class InjuryType extends ImprovedEnum {
 
     const NONE = 'none';
 }

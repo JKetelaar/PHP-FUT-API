@@ -5,9 +5,9 @@
 
 namespace JKetelaar\fut\bot\market\players;
 
-use MyCLabs\Enum\Enum;
+use JKetelaar\fut\bot\ImprovedEnum;
 
-class ItemType extends Enum {
+class ItemType extends ImprovedEnum  {
 
     const PLAYER    = 'player';
     const TRAINING = 'training';

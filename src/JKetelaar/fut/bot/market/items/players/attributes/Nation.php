@@ -5,9 +5,9 @@
 
 namespace JKetelaar\fut\bot\market\items\players\attributes;
 
-use MyCLabs\Enum\Enum;
+use JKetelaar\fut\bot\ImprovedEnum;
 
-class Nation extends Enum {
+class Nation extends ImprovedEnum  {
     const ALBANIA             = 1;
     const ALGERIA             = 97;
     const ANGOLA              = 98;

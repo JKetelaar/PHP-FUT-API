@@ -5,10 +5,12 @@
 
 namespace JKetelaar\fut\bot\market\trading;
 
+use JKetelaar\fut\bot\market\items\AbstractItemType;
 use JKetelaar\fut\bot\market\items\misc\ItemState;
 use JKetelaar\fut\bot\market\players\ItemType;
+use JKetelaar\fut\bot\ResultParser;
 
-class ItemData {
+class ItemData implements ResultParser{
 
     /**
      * @var int
@@ -34,6 +36,11 @@ class ItemData {
      * @var ItemType
      */
     private $itemType;
+
+    /**
+     * @var AbstractItemType
+     */
+    private $item;
 
     /**
      * @var int
@@ -73,18 +80,19 @@ class ItemData {
     /**
      * ItemData constructor.
      *
-     * @param int       $id
-     * @param int       $timestamp
-     * @param bool      $untradeable
-     * @param int       $assetId
-     * @param ItemType  $itemType
-     * @param int       $resourceId
-     * @param int       $owners
-     * @param int       $discardValue
-     * @param ItemState $itemState
-     * @param int       $cardsubtypeid
-     * @param int       $lastSalePrice
-     * @param int       $rareflag
+     * @param int              $id
+     * @param int              $timestamp
+     * @param bool             $untradeable
+     * @param int              $assetId
+     * @param ItemType         $itemType
+     * @param AbstractItemType $item
+     * @param int              $resourceId
+     * @param int              $owners
+     * @param int              $discardValue
+     * @param ItemState        $itemState
+     * @param int              $cardsubtypeid
+     * @param int              $lastSalePrice
+     * @param int              $rareflag
      */
     public function __construct(
         $id,
@@ -92,6 +100,7 @@ class ItemData {
         $untradeable,
         $assetId,
         ItemType $itemType,
+        AbstractItemType $item,
         $resourceId,
         $owners,
         $discardValue,
@@ -105,6 +114,7 @@ class ItemData {
         $this->untradeable   = $untradeable;
         $this->assetId       = $assetId;
         $this->itemType      = $itemType;
+        $this->item          = $item;
         $this->resourceId    = $resourceId;
         $this->owners        = $owners;
         $this->discardValue  = $discardValue;
@@ -196,5 +206,42 @@ class ItemData {
      */
     public function getRareflag() {
         return $this->rareflag;
+    }
+
+    /**
+     * @return AbstractItemType
+     */
+    public function getItem() {
+        return $this->item;
+    }
+
+    /**
+     * @param AbstractItemType $item
+     */
+    private function setItem($item) {
+        $this->item = $item;
+    }
+
+    /**
+     * @param array $result
+     *
+     * @return ItemData
+     */
+    public static function toObject($result) {
+        $itemData = new ItemData(
+            $result['id'],
+            $result['timestamp'],
+            $result['untradable'],
+            $result['assetId'],
+            $result['itemType'],
+            $result['id'],
+            $result['id'],
+            $result['id'],
+            $result['id'],
+            $result['id'],
+            $result['id'],
+            $result['id'],
+            $result['id']
+        );
     }
 }

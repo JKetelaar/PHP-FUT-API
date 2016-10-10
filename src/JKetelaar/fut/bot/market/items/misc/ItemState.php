@@ -5,7 +5,9 @@
 
 namespace JKetelaar\fut\bot\market\items\misc;
 
-class ItemState {
+use JKetelaar\fut\bot\ImprovedEnum;
+
+class ItemState extends ImprovedEnum {
 
     const FOR_SALE = 'forSale';
     const FREE     = 'free';
