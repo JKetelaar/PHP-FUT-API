@@ -62,12 +62,12 @@ class Handler {
      *
      * @param bool   $anonymous
      *
-     * @return array|bool|null|string
      * @throws IncorrectEndpoint
      * @throws IncorrectHeaders
      * @throws MarketError
      * @throws UnknownEndpoint
      * @throws UnparsableEndpoint
+     * @return array|bool|null|string
      */
     public function sendRequest($url, Method $method = null, $data = [], $headers = null, $anonymous = false) {
         if($method === null) {

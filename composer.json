@@ -24,7 +24,8 @@
     "sunra/php-simple-html-dom-parser": "^1.5",
     "spomky-labs/otphp": "^8.2",
     "myclabs/php-enum": "^1.4",
-    "phpunit/phpunit": "5.5.*"
+    "phpunit/phpunit": "5.5.*",
+    "fut/eahashor": "^1.0"
   },
   "autoload": {
     "psr-0": {

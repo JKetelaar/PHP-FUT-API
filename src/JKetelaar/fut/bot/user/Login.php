@@ -6,6 +6,7 @@
 namespace JKetelaar\fut\bot\user;
 
 use Curl\Curl;
+use Fut\EAHashor;
 use JKetelaar\fut\bot\API;
 use JKetelaar\fut\bot\config\Comparisons;
 use JKetelaar\fut\bot\config\Configuration;
@@ -86,7 +87,7 @@ class Login {
     public function login() {
         $result = false;
         if(($resultMain = $this->requestMain()) != null) {
-            if( ! is_bool($resultMain)) {
+            if( !is_bool($resultMain)) {
                 $codeURL = $this->postLoginForm($resultMain);
 
                 $result = $this->postTwoFactorForm($codeURL);
@@ -95,7 +96,7 @@ class Login {
             }
         }
 
-        if( ! is_bool($result)) {
+        if( !is_bool($result)) {
             throw new MainLogin(298175, 'Unknown result given by flow');
         }
 
@@ -297,13 +298,12 @@ class Login {
     }
 
     public function validate() {
-        exec(NODE_LOCATION . ' "' . __DIR__ . '/../js/index.js" ' . $this->user->getSecret(), $output);
-        if(isset($output[ 0 ]) && strlen($output[ 0 ]) == 32) {
-            $this->curl->setHeader('Content-Type', 'application/x-www-form-urlencoded');
-            $this->curl->setHeader('X-UT-SID', $this->session[ 'sid' ]);
+        $secret = EAHashor::getHash($this->user->getSecret());
 
-            $this->curl->post(URL::LOGIN_VALIDATE, [ 'answer' => $output[ 0 ] ]);
-        }
+        $this->curl->setHeader('Content-Type', 'application/x-www-form-urlencoded');
+        $this->curl->setHeader('X-UT-SID', $this->session[ 'sid' ]);
+
+        $this->curl->post(URL::LOGIN_VALIDATE, [ 'answer' => $secret ]);
 
         if($this->curl->error) {
             throw new MainLogin($this->curl->errorCode, $this->curl->errorMessage);
