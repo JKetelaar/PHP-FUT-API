@@ -62,8 +62,3 @@ findByChemistryStyle(ChemistryStyle::SNIPER())
 ### Credits
 * [Lorzenzh with fut api](https://github.com/lorenzh/fut-api/)
 * [Trydis with FIFA Ultimate Team Toolkit](https://github.com/trydis/FIFA-Ultimate-Team-Toolkit)
-
-### ToDo's
-We currently have a few things to be done, so feel free to contribute;
-* Fix the [Hasher](https://github.com/JKetelaar/PHP-FUT-Bot/blob/master/src/JKetelaar/fut/bot/user/Hasher.php)
-* Create a proper Composer project from this (so `composer require jketelaar/php-fut-bot` can be used)
