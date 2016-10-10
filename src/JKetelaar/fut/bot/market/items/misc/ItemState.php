@@ -11,5 +11,6 @@ class ItemState extends ImprovedEnum {
 
     const FOR_SALE = 'forSale';
     const FREE     = 'free';
+    const _DEFAULT = self::FREE;
 
 }

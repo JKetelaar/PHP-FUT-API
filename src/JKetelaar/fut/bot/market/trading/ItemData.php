@@ -13,6 +13,8 @@ use JKetelaar\fut\bot\ResultParser;
 
 class ItemData implements ResultParser {
 
+    const TAG = 'itemData';
+
     /**
      * @var int
      */
@@ -131,6 +133,7 @@ class ItemData implements ResultParser {
      * @return ItemData
      */
     public static function toObject($result) {
+        var_dump($result[ 'itemState' ]);
         $itemData = new ItemData(
             $result[ 'id' ],
             $result[ 'timestamp' ],

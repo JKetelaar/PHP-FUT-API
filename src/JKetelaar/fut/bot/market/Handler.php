@@ -14,6 +14,7 @@ use JKetelaar\fut\bot\errors\market\MarketError;
 use JKetelaar\fut\bot\errors\market\UnknownEndpoint;
 use JKetelaar\fut\bot\errors\market\UnparsableEndpoint;
 use JKetelaar\fut\bot\market\handler\Method;
+use JKetelaar\fut\bot\market\trading\ItemData;
 use JKetelaar\fut\bot\market\trading\Trade;
 use JKetelaar\fut\bot\user\User;
 
@@ -38,6 +39,17 @@ class Handler {
     public function __construct(Curl $curl, User $user) {
         $this->curl = $curl;
         $this->user = $user;
+    }
+
+    /**
+     * TODO: Still in development, throws errors
+     *
+     * @param int $assetId
+     *
+     * @return ItemData
+     */
+    public function getDefinition($assetId){
+        return ItemData::toObject($this->sendRequest(sprintf(URL::API_DEF, $assetId))[ItemData::TAG][0]);
     }
 
     /**

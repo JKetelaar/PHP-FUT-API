@@ -30,6 +30,10 @@ class ImprovedEnum extends Enum {
             }
         }
 
+        if ($default == null){
+            $default = self::_DEFAULT();
+        }
+
         return ($default instanceof Enum) ? ($returnObject ? $default : $default->getValue()) : $default;
     }
 
@@ -45,6 +49,10 @@ class ImprovedEnum extends Enum {
             if(strtolower($item->getValue()) === strtolower($value)) {
                 return $returnObject ? $item : $item->getKey();
             }
+        }
+
+        if ($default == null){
+            $default = self::_DEFAULT();
         }
 
         return ($default instanceof Enum) ? ($returnObject ? $default : $default->getKey()) : $default;
