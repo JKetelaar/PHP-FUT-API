@@ -135,7 +135,7 @@ class PlayerType extends AbstractItemType implements ResultParser {
      * @return object
      */
     public static function toObject($result) {
-        $player = new PlayerType(
+        $player = new self(
             $result[ 'teamid' ],
             $result[ 'leagueId' ],
             $result[ 'rating' ],

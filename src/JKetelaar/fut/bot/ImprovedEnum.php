@@ -13,7 +13,6 @@ use MyCLabs\Enum\Enum;
  * @method static ImprovedEnum _DEFAULT()
  */
 class ImprovedEnum extends Enum {
-
     /**
      * @param string $key
      *

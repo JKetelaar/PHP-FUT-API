@@ -6,7 +6,6 @@
 namespace JKetelaar\fut\bot\errors;
 
 class CaptchaException extends \Exception {
-
     /**
      * CaptchaException constructor.
      */

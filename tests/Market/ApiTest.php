@@ -8,7 +8,6 @@ namespace Market;
 use JKetelaar\fut\bot\API;
 
 class ApiTest extends \PHPUnit_Framework_TestCase {
-
     public function testPlatformCorrectness() {
         $this->assertTrue(API::getPlatform('ps4') === 'ps3');
         $this->assertTrue(API::getPlatform('ps3') === 'ps3');

@@ -134,7 +134,7 @@ class ItemData implements ResultParser {
      */
     public static function toObject($result) {
         var_dump($result[ 'itemState' ]);
-        $itemData = new ItemData(
+        $itemData = new self(
             $result[ 'id' ],
             $result[ 'timestamp' ],
             $result[ 'untradeable' ],
@@ -183,7 +183,7 @@ class ItemData implements ResultParser {
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isUntradeable() {
         return $this->untradeable;
