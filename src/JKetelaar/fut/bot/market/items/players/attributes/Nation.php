@@ -7,7 +7,7 @@ namespace JKetelaar\fut\bot\market\items\players\attributes;
 
 use JKetelaar\fut\bot\ImprovedEnum;
 
-class Nation extends ImprovedEnum  {
+class Nation extends ImprovedEnum {
     const ALBANIA             = 1;
     const ALGERIA             = 97;
     const ANGOLA              = 98;
@@ -154,7 +154,7 @@ class Nation extends ImprovedEnum  {
     const ZAMBIA              = 147;
     const ZIMBABWE            = 148;
 
-    public function getName(){
+    public function getName() {
         return ucwords(str_replace('_', ' ', strtolower($this->getKey())));
     }
 }

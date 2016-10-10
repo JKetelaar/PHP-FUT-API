@@ -15,7 +15,7 @@ use MyCLabs\Enum\Enum;
 class ImprovedEnum extends Enum {
 
     /**
-     * @param string $value
+     * @param string $key
      *
      * @param bool   $returnObject
      *
@@ -23,9 +23,9 @@ class ImprovedEnum extends Enum {
      *
      * @return null|ImprovedEnum|object
      */
-    public static function findByValue($value, $returnObject = false, $default = null) {
+    public static function findByKey($key, $returnObject = false, $default = null) {
         foreach(self::values() as $item) {
-            if(strtolower($item->getKey()) === strtolower($value)) {
+            if(strtolower($item->getKey()) === strtolower($key)) {
                 return $returnObject ? $item : $item->getValue();
             }
         }
@@ -34,9 +34,26 @@ class ImprovedEnum extends Enum {
     }
 
     /**
+     * @param string $value
+     * @param bool   $returnObject
+     * @param null   $default
+     *
+     * @return null|ImprovedEnum|object
+     */
+    public static function findByValue($value, $returnObject = false, $default = null) {
+        foreach(self::values() as $item) {
+            if(strtolower($item->getValue()) === strtolower($value)) {
+                return $returnObject ? $item : $item->getKey();
+            }
+        }
+
+        return ($default instanceof Enum) ? ($returnObject ? $default : $default->getKey()) : $default;
+    }
+
+    /**
      * @return string
      */
-    public function getName(){
+    public function getName() {
         return ucwords(str_replace('_', ' ', strtolower($this->getKey())));
     }
 }

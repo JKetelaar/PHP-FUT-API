@@ -9,6 +9,8 @@ use JKetelaar\fut\bot\ResultParser;
 
 class Trade implements ResultParser {
 
+    const TAG = 'auctionInfo';
+
     /**
      * @var int
      */
@@ -108,7 +110,7 @@ class Trade implements ResultParser {
      * @return Trade
      */
     public static function toObject($result) {
-        $trade = new Trade(
+        $trade    = new Trade(
             $result[ 'tradeId' ],
             $result[ 'tradeState' ],
             $result[ 'buyNowPrice' ],
@@ -120,10 +122,17 @@ class Trade implements ResultParser {
             $result[ 'confidenceValue' ],
             $result[ 'expires' ]
         );
-
-        $itemData = new ItemData();
+        $itemData = ItemData::toObject($result[ 'itemData' ]);
+        $trade->setItemData($itemData);
 
         return $trade;
+    }
+
+    /**
+     * @param ItemData $itemData
+     */
+    private function setItemData($itemData) {
+        $this->itemData = $itemData;
     }
 
     /**
@@ -201,12 +210,5 @@ class Trade implements ResultParser {
      */
     public function getItemData() {
         return $this->itemData;
-    }
-
-    /**
-     * @param ItemData $itemData
-     */
-    private function setItemData($itemData) {
-        $this->itemData = $itemData;
     }
 }

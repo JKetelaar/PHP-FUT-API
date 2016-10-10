@@ -3,11 +3,11 @@
  * @author JKetelaar
  */
 
-namespace JKetelaar\fut\bot\market\players;
+namespace JKetelaar\fut\bot\market\items\players\attributes;
 
 use JKetelaar\fut\bot\ImprovedEnum;
 
-class ChemistryStyle extends ImprovedEnum  {
+class ChemistryStyle extends ImprovedEnum {
     const BASIC      = 250;
     const SNIPER     = 251;
     const FINISHER   = 252;

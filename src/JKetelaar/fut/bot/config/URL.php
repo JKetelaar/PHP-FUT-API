@@ -30,4 +30,5 @@ abstract class URL {
     const API_LIST_ITEM             = '/ut/game/fifa17/auctionhouse';
     const API_STATUS                = '/ut/game/fifa17/trade/status?';
     const API_ITEM                  = '/ut/game/fifa17/item';
+    const API_PLAYER                = '/ut/game/fifa17/defid?type=player&count=35&start=0&defId=%s'; // Replaceable %s
 }

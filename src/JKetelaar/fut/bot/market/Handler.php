@@ -40,20 +40,16 @@ class Handler {
         $this->user = $user;
     }
 
+    /**
+     * @return Trade[]
+     */
     public function getTradepile() {
         $auctions = [];
-        foreach(($request = $this->sendRequest(URL::API_TRADEPILE)[ 'auctionInfo' ]) as $auction) {
+        foreach(($request = $this->sendRequest(URL::API_TRADEPILE)[ Trade::TAG ]) as $auction) {
             $auctions[] = Trade::toObject($auction);
         }
-        echo('<pre>');
-        var_dump($request);
-        echo('</pre>');
 
         return $auctions;
-    }
-
-    public function getWatchlist(){
-        var_dump($this->sendRequest(URL::API_WATCHLIST));
     }
 
     /**
@@ -111,6 +107,10 @@ class Handler {
         }
 
         return json_decode(json_encode($curl->response), true);
+    }
+
+    public function getWatchlist() {
+        var_dump($this->sendRequest(URL::API_WATCHLIST));
     }
 
     public function getCredits() {

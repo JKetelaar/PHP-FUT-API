@@ -7,10 +7,13 @@ namespace JKetelaar\fut\bot\market\trading;
 
 use JKetelaar\fut\bot\market\items\AbstractItemType;
 use JKetelaar\fut\bot\market\items\misc\ItemState;
-use JKetelaar\fut\bot\market\players\ItemType;
+use JKetelaar\fut\bot\market\items\ItemType;
+use JKetelaar\fut\bot\market\items\players\Attributes;
+use JKetelaar\fut\bot\market\items\players\AttributeValue;
+use JKetelaar\fut\bot\market\items\players\PlayerType;
 use JKetelaar\fut\bot\ResultParser;
 
-class ItemData implements ResultParser{
+class ItemData implements ResultParser {
 
     /**
      * @var int
@@ -100,7 +103,7 @@ class ItemData implements ResultParser{
         $untradeable,
         $assetId,
         ItemType $itemType,
-        AbstractItemType $item,
+        AbstractItemType $item = null,
         $resourceId,
         $owners,
         $discardValue,
@@ -122,6 +125,46 @@ class ItemData implements ResultParser{
         $this->cardsubtypeid = $cardsubtypeid;
         $this->lastSalePrice = $lastSalePrice;
         $this->rareflag      = $rareflag;
+    }
+
+    /**
+     * @param array $result
+     *
+     * @return ItemData
+     */
+    public static function toObject($result) {
+        $itemData = new ItemData(
+            $result[ 'id' ],
+            $result[ 'timestamp' ],
+            $result[ 'untradeable' ],
+            $result[ 'assetId' ],
+            ItemType::findByKey($result[ 'itemType' ], true),
+            null,
+            $result[ 'resourceId' ],
+            $result[ 'owners' ],
+            $result[ 'discardValue' ],
+            ItemState::findByKey($result[ 'itemState' ], true),
+            $result[ 'cardsubtypeid' ],
+            $result[ 'lastSalePrice' ],
+            $result[ 'rareflag' ]
+        );
+
+        $item = null;
+        switch($itemData->getItemType()->getValue()) {
+            case ItemType::PLAYER:
+                $item = PlayerType::toObject($result);
+                break;
+        }
+        $itemData->item = $item;
+
+        return $itemData;
+    }
+
+    /**
+     * @return ItemType
+     */
+    public function getItemType() {
+        return $this->itemType;
     }
 
     /**
@@ -150,13 +193,6 @@ class ItemData implements ResultParser{
      */
     public function getAssetId() {
         return $this->assetId;
-    }
-
-    /**
-     * @return ItemType
-     */
-    public function getItemType() {
-        return $this->itemType;
     }
 
     /**
@@ -213,35 +249,5 @@ class ItemData implements ResultParser{
      */
     public function getItem() {
         return $this->item;
-    }
-
-    /**
-     * @param AbstractItemType $item
-     */
-    private function setItem($item) {
-        $this->item = $item;
-    }
-
-    /**
-     * @param array $result
-     *
-     * @return ItemData
-     */
-    public static function toObject($result) {
-        $itemData = new ItemData(
-            $result['id'],
-            $result['timestamp'],
-            $result['untradable'],
-            $result['assetId'],
-            $result['itemType'],
-            $result['id'],
-            $result['id'],
-            $result['id'],
-            $result['id'],
-            $result['id'],
-            $result['id'],
-            $result['id'],
-            $result['id']
-        );
     }
 }

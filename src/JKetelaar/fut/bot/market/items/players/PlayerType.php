@@ -6,19 +6,18 @@
 namespace JKetelaar\fut\bot\market\items\players;
 
 use JKetelaar\fut\bot\market\items\AbstractItemType;
-use JKetelaar\fut\bot\market\items\InjuryType;
 use JKetelaar\fut\bot\market\items\misc\Formation;
+use JKetelaar\fut\bot\market\items\players\attributes\ChemistryStyle;
 use JKetelaar\fut\bot\market\items\players\attributes\Nation;
 use JKetelaar\fut\bot\market\items\players\attributes\Position;
-use JKetelaar\fut\bot\market\players\Attribute;
-use JKetelaar\fut\bot\market\players\ChemistryStyle;
+use JKetelaar\fut\bot\ResultParser;
 
 /**
  * Class PlayerType
  * @package JKetelaar\fut\bot\market\items\players
  * @AllArgsConstructor
  */
-class PlayerType extends AbstractItemType {
+class PlayerType extends AbstractItemType implements ResultParser {
 
     /**
      * @var int
@@ -66,7 +65,7 @@ class PlayerType extends AbstractItemType {
     private $suspension;
 
     /**
-     * @var Attribute[]
+     * @var AttributeValue[]
      */
     private $attributes;
 
@@ -78,23 +77,23 @@ class PlayerType extends AbstractItemType {
     /**
      * PlayerType constructor.
      *
-     * @param int                                           $morale
-     * @param ChemistryStyle                                $playStyle
-     * @param int                                           $fitness
-     * @param InjuryType                                    $injuryType
-     * @param int                                           $injuryGames
-     * @param Position                                      $preferredPosition
-     * @param int                                           $training
-     * @param int                                           $contract
-     * @param int                                           $suspension
-     * @param \JKetelaar\fut\bot\market\players\Attribute[] $attributes
-     * @param Nation                                        $nation
-     * @param int                                           $teamid
-     * @param int                                           $leagueId
-     * @param int                                           $rating
-     * @param int                                           $marketDataMinPrice
-     * @param int                                           $marketDataMaxPrice
-     * @param Formation                                     $formation
+     * @param int              $morale
+     * @param ChemistryStyle   $playStyle
+     * @param int              $fitness
+     * @param InjuryType       $injuryType
+     * @param int              $injuryGames
+     * @param Position         $preferredPosition
+     * @param int              $training
+     * @param int              $contract
+     * @param int              $suspension
+     * @param AttributeValue[] $attributes
+     * @param Nation           $nation
+     * @param int              $teamid
+     * @param int              $leagueId
+     * @param int              $rating
+     * @param int              $marketDataMinPrice
+     * @param int              $marketDataMaxPrice
+     * @param Formation        $formation
      */
     public function __construct(
         $teamid,
@@ -130,4 +129,32 @@ class PlayerType extends AbstractItemType {
         $this->nation            = $nation;
     }
 
+    /**
+     * @param array $result
+     *
+     * @return object
+     */
+    public static function toObject($result) {
+        $player = new PlayerType(
+            $result[ 'teamid' ],
+            $result[ 'leagueId' ],
+            $result[ 'rating' ],
+            $result[ 'marketDataMinPrice' ],
+            $result[ 'marketDataMaxPrice' ],
+            Formation::findByKey($result[ 'formation' ], true),
+            $result[ 'morale' ],
+            ChemistryStyle::findByValue($result[ 'playStyle' ], true),
+            $result[ 'fitness' ],
+            InjuryType::findByValue($result[ 'injuryType' ], true),
+            $result[ 'injuryGames' ],
+            Position::findByValue($result[ 'preferredPosition' ], true),
+            $result[ 'training' ],
+            $result[ 'contract' ],
+            $result[ 'suspension' ],
+            AttributeValue::toObjects($result[ AttributeValue::TAG ]),
+            Nation::findByValue($result[ 'nation' ], true)
+        );
+
+        return $player;
+    }
 }
