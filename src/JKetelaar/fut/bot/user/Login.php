@@ -207,8 +207,8 @@ class Login {
 
         $accounts = json_decode(json_encode($tempCurl->response), true);
         if(count($accounts) > 0 && count($accounts[ 'userAccountInfo' ]) > 0 && count(
-                                                                                      $accounts[ 'userAccountInfo' ][ 'personas' ]
-                                                                                  ) > 0
+                                                                                    $accounts[ 'userAccountInfo' ][ 'personas' ]
+                                                                                ) > 0
         ) {
             $p = null;
             foreach($accounts[ 'userAccountInfo' ][ 'personas' ] as $persona) {
