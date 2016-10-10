@@ -32,5 +32,5 @@ class ChemistryStyle extends ImprovedEnum {
     const CAT        = 271;
     const GLOVE      = 272;
     const GK_BASIC   = 273;
-    const _DEFAULT = self::BASIC;
+    const _DEFAULT   = self::BASIC;
 }

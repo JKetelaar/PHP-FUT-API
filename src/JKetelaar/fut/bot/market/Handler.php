@@ -50,20 +50,8 @@ class Handler {
      *
      * @return ItemData
      */
-    public function getDefinition($assetId){
-        return ItemData::toObject($this->sendRequest(sprintf(URL::API_DEF, $assetId))[ItemData::TAG][0]);
-    }
-
-    /**
-     * @return Trade[]
-     */
-    public function getTradepile() {
-        $auctions = [];
-        foreach(($request = $this->sendRequest(URL::API_TRADEPILE)[ Trade::TAG ]) as $auction) {
-            $auctions[] = Trade::toObject($auction);
-        }
-
-        return $auctions;
+    public function getDefinition($assetId) {
+        return ItemData::toObject($this->sendRequest(sprintf(URL::API_DEF, $assetId))[ ItemData::TAG ][ 0 ]);
     }
 
     /**
@@ -72,6 +60,8 @@ class Handler {
      * @param array  $data
      * @param null   $headers
      *
+     * @param bool   $anonymous
+     *
      * @return array|bool|null|string
      * @throws IncorrectEndpoint
      * @throws IncorrectHeaders
@@ -79,12 +69,23 @@ class Handler {
      * @throws UnknownEndpoint
      * @throws UnparsableEndpoint
      */
-    public function sendRequest($url, Method $method = null, $data = [], $headers = null) {
+    public function sendRequest($url, Method $method = null, $data = [], $headers = null, $anonymous = false) {
         if($method === null) {
             $method = Method::GET();
         }
 
-        $curl = &$this->curl;
+        if($anonymous === true) {
+            $curl = new Curl();
+            $curl->setOpt(CURLOPT_FOLLOWLOCATION, true);
+            $curl->setOpt(CURLOPT_ENCODING, Configuration::HEADER_ACCEPT_ENCODING);
+            $curl->setHeader('Accept-Language', Configuration::HEADER_ACCEPT_LANGUAGE);
+            $curl->setHeader('Cache-Control', Configuration::HEADER_CACHE_CONTROL);
+            $curl->setHeader('Accept', Configuration::HEADER_ACCEPT);
+            $curl->setHeader('DNT', Configuration::HEADER_DNT);
+            $curl->setUserAgent(Configuration::HEADER_USER_AGENT);
+        } else {
+            $curl = &$this->curl;
+        }
 
         foreach($this->user->getHeaders() as $key => $header) {
             $curl->setHeader($key, $header);
@@ -121,6 +122,18 @@ class Handler {
         }
 
         return json_decode(json_encode($curl->response), true);
+    }
+
+    /**
+     * @return Trade[]
+     */
+    public function getTradepile() {
+        $auctions = [];
+        foreach(($request = $this->sendRequest(URL::API_TRADEPILE)[ Trade::TAG ]) as $auction) {
+            $auctions[] = Trade::toObject($auction);
+        }
+
+        return $auctions;
     }
 
     public function getWatchlist() {

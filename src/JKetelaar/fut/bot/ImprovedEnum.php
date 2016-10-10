@@ -30,7 +30,7 @@ class ImprovedEnum extends Enum {
             }
         }
 
-        if ($default == null){
+        if($default == null) {
             $default = self::_DEFAULT();
         }
 
@@ -51,7 +51,7 @@ class ImprovedEnum extends Enum {
             }
         }
 
-        if ($default == null){
+        if($default == null) {
             $default = self::_DEFAULT();
         }
 
