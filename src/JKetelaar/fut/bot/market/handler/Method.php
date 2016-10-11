@@ -5,9 +5,17 @@
 
 namespace JKetelaar\fut\bot\market\handler;
 
-use MyCLabs\Enum\Enum;
+use JKetelaar\fut\bot\ImprovedEnum;
 
-class Method extends Enum {
+/**
+ * Class Method
+ * @method static Method GET()
+ * @method static Method POST()
+ * @method static Method PUT()
+ * @method static Method DELETE()
+ * @package JKetelaar\fut\bot\market\handler
+ */
+class Method extends ImprovedEnum {
 
     const GET    = 'GET';
     const POST   = 'POST';
