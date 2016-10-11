@@ -10,19 +10,24 @@ No wait, let's first answer a question.
 **N:** Great! Welcome to the perfect PHP FUT Bot :smirk:
 
 ## How to install?
-Well you need Node first, [install that](https://nodejs.org/en/download/)!
+Install this project using Composer; `composer require jketelaar/php-fut-bot`.
 
-Now download this project and start using:
+Then start using the API using something like:
 ```
+<?php
 require_once('vendor/autoload.php');
 
-define('NODE_LOCATION', '/usr/local/bin/node');
 define('DATA_DIR', __DIR__ . '/data/');
 
 $api = new \JKetelaar\fut\bot\API('your@email.me', 'password', 'secret', 'totp_callback', 'platform');
 
-if ($api->login()){
-    echo('Correct login!');
+if($api->login() === true) {
+    echo('We\'re logged in!' . "\n");
+
+    $handler = $api->getHandler();
+    foreach($handler->getTradepile() as $trade) {
+        // Interact with $trade here
+    }
 }
 
 function totp_callback() {
