@@ -5,6 +5,7 @@
 
 namespace JKetelaar\fut\bot\database\models;
 
+use JKetelaar\fut\bot\config\URL;
 use JKetelaar\fut\bot\market\items\players\attributes\Nation;
 use JKetelaar\fut\bot\ResultParser;
 
@@ -102,5 +103,12 @@ class Player implements ResultParser {
      */
     public function getFullName() {
         return $this->firstName . ' ' . $this->lastName;
+    }
+
+    /**
+     * @return string URL of the player image
+     */
+    public function getImage() {
+        return sprintf(URL::PLAYER_IMAGE, $this->assetId);
     }
 }
