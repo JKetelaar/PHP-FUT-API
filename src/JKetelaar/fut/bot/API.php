@@ -125,6 +125,7 @@ class API {
         if ($this->playersAPI == null){
             $this->playersAPI = new Players();
         }
+
         return $this->playersAPI;
     }
 }

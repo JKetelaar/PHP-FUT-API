@@ -65,7 +65,7 @@ class Players {
         }
 
         if ($result != null){
-            $player = Player::toObject($result);
+            $player                   = Player::toObject($result);
             $this->cachedPlayers[$id] = ($result = $player);
         }
 
