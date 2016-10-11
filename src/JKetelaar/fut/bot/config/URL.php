@@ -32,5 +32,7 @@ abstract class URL {
     const API_ITEM                  = '/ut/game/fifa17/item';
     const API_DEF                   = '/ut/game/fifa17/defid?type=player&count=35&start=0&defId=%s'; // Replaceable %s
 
+    // Players endpoints
     const PLAYERS_DATABASE = 'http://cdn.content.easports.com/fifa/fltOnlineAssets/CC8267B6-0817-4842-BB6A-A20F88B05418/2017/fut/items/web/players.json';
+    const PLAYER_IMAGE     = 'https://fifa17.content.easports.com/fifa/fltOnlineAssets/CC8267B6-0817-4842-BB6A-A20F88B05418/2017/fut/items/images/players/html5/120x120/%s.png'; // Replaceable %s
 }
