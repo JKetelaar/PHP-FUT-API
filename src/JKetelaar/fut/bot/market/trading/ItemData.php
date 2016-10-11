@@ -133,7 +133,6 @@ class ItemData implements ResultParser {
      * @return ItemData
      */
     public static function toObject($result) {
-        var_dump($result[ 'itemState' ]);
         $itemData = new self(
             $result[ 'id' ],
             $result[ 'timestamp' ],
