@@ -31,4 +31,6 @@ abstract class URL {
     const API_STATUS                = '/ut/game/fifa17/trade/status?';
     const API_ITEM                  = '/ut/game/fifa17/item';
     const API_DEF                   = '/ut/game/fifa17/defid?type=player&count=35&start=0&defId=%s'; // Replaceable %s
+
+    const PLAYERS_DATABASE = 'http://cdn.content.easports.com/fifa/fltOnlineAssets/CC8267B6-0817-4842-BB6A-A20F88B05418/2017/fut/items/web/players.json';
 }
