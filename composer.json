@@ -16,7 +16,7 @@
     "api"
   ],
   "homepage": "https://github.com/JKetelaar/PHP-FUT-Bot",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "license": "GPL-3.0+",
   "require": {
     "php": "^5.5 || ^7.0",
