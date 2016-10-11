@@ -6,6 +6,7 @@
 namespace JKetelaar\fut\bot;
 
 use Curl\Curl;
+use JKetelaar\fut\bot\database\Players;
 use JKetelaar\fut\bot\errors\NonExistingTokenFunction;
 use JKetelaar\fut\bot\errors\UnknownPlatform;
 use JKetelaar\fut\bot\market\Handler;
@@ -32,6 +33,11 @@ class API {
      * @var Handler
      */
     private $handler;
+
+    /**
+     * @var Players
+     */
+    private $playersAPI;
 
     /**
      * API constructor.
@@ -110,5 +116,15 @@ class API {
         }
 
         return $result;
+    }
+
+    /**
+     * @return Players
+     */
+    public function getPlayersAPI() {
+        if ($this->playersAPI == null){
+            $this->playersAPI = new Players();
+        }
+        return $this->playersAPI;
     }
 }
