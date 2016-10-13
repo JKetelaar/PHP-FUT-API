@@ -8,7 +8,6 @@ namespace JKetelaar\fut\bot\market;
 use JKetelaar\fut\bot\config\URL;
 use JKetelaar\fut\bot\errors\market\AmountTooBigException;
 use JKetelaar\fut\bot\market\items\ItemType;
-use JKetelaar\fut\bot\market\searching\Parameter;
 use JKetelaar\fut\bot\market\trading\Trade;
 
 class Searcher {
@@ -35,8 +34,8 @@ class Searcher {
      * @param int      $amount
      * @param array    $params
      *
-     * @return array|bool|null|string
      * @throws AmountTooBigException
+     * @return array|bool|null|string
      */
     public function searchFor(ItemType $type, $offset = 0, $amount = 16, array $params = []) {
         if($amount > self::LIMIT) {
@@ -50,9 +49,9 @@ class Searcher {
 
         $parameters = array_merge(
             [
-                'type' => $type->getValue(),
+                'type'  => $type->getValue(),
                 'start' => $offset,
-                'num' => $amount,
+                'num'   => $amount,
             ],
             $parameters
         );
