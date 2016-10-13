@@ -137,7 +137,12 @@ class Handler {
     }
 
     public function getWatchlist() {
-        var_dump($this->sendRequest(URL::API_WATCHLIST));
+        $watchers = [];
+        foreach($this->sendRequest(URL::API_WATCHLIST)[ Trade::TAG ] as $item) {
+            $watchers[] = Trade::toObject($item);
+        }
+
+        return $watchers;
     }
 
     public function getCredits() {
