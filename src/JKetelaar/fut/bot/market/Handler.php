@@ -181,6 +181,7 @@ class Handler {
         if ($this->searcher == null){
             $this->searcher = new Searcher($this);
         }
+
         return $this->searcher;
     }
 }
