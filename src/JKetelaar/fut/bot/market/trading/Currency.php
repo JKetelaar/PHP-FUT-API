@@ -5,7 +5,9 @@
 
 namespace JKetelaar\fut\bot\market;
 
-class Currency {
+use JKetelaar\fut\bot\ResultParser;
+
+class Currency implements ResultParser {
 
     const TAG = 'currencies';
 
@@ -56,5 +58,16 @@ class Currency {
      */
     public function getName() {
         return $this->name;
+    }
+
+    /**
+     * @param array $result
+     *
+     * @return object
+     */
+    public static function toObject($result) {
+        return new self(
+            $result[ 'name' ], $result[ 'funds' ], $result[ 'finalFunds' ]
+        );
     }
 }
