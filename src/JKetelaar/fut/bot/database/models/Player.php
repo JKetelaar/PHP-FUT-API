@@ -70,6 +70,15 @@ class Player implements ResultParser {
         return $this->assetId;
     }
 
+    public function getBaseId() {
+        $id = $this->assetId;
+        while($id > 16777216) {
+            $id -= 16777216;
+        }
+
+        return $id;
+    }
+
     /**
      * @return string
      */
