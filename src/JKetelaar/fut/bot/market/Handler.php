@@ -31,6 +31,11 @@ class Handler {
     private $user;
 
     /**
+     * @var Searcher
+     */
+    private $searcher;
+
+    /**
      * Handler constructor.
      *
      * @param Curl $curl
@@ -160,14 +165,22 @@ class Handler {
             $currencies = [];
 
             foreach($result[ Currency::TAG ] as $currency) {
-                $currencies[] = new Currency(
-                    $currency[ 'name' ], $currency[ 'funds' ], $currency[ 'finalFunds' ]
-                );
+                $currencies[] = Currency::toObject($currency);
             }
 
             return $currencies;
         }
 
         return null;
+    }
+
+    /**
+     * @return Searcher
+     */
+    public function getSearcher() {
+        if ($this->searcher == null){
+            $this->searcher = new Searcher($this);
+        }
+        return $this->searcher;
     }
 }
