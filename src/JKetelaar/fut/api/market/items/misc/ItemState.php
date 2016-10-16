@@ -3,9 +3,9 @@
  * @author JKetelaar
  */
 
-namespace JKetelaar\fut\bot\market\items\misc;
+namespace JKetelaar\fut\api\market\items\misc;
 
-use JKetelaar\fut\bot\ImprovedEnum;
+use JKetelaar\fut\api\ImprovedEnum;
 
 class ItemState extends ImprovedEnum {
 

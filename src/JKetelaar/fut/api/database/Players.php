@@ -3,10 +3,10 @@
  * @author JKetelaar
  */
 
-namespace JKetelaar\fut\bot\database;
+namespace JKetelaar\fut\api\database;
 
-use JKetelaar\fut\bot\config\URL;
-use JKetelaar\fut\bot\database\models\Player;
+use JKetelaar\fut\api\config\URL;
+use JKetelaar\fut\api\database\models\Player;
 
 class Players {
     /**

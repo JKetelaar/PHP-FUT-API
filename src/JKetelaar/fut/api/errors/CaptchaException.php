@@ -3,7 +3,7 @@
  * @author JKetelaar
  */
 
-namespace JKetelaar\fut\bot\errors;
+namespace JKetelaar\fut\api\errors;
 
 class CaptchaException extends \Exception {
     /**

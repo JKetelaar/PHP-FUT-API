@@ -3,9 +3,9 @@
  * @author JKetelaar
  */
 
-namespace JKetelaar\fut\bot\market;
+namespace JKetelaar\fut\api\market;
 
-use JKetelaar\fut\bot\ResultParser;
+use JKetelaar\fut\api\ResultParser;
 
 class Currency implements ResultParser {
 

@@ -3,18 +3,18 @@
  * @author JKetelaar
  */
 
-namespace JKetelaar\fut\bot\user;
+namespace JKetelaar\fut\api\user;
 
 use Curl\Curl;
 use Fut\EAHashor;
-use JKetelaar\fut\bot\API;
-use JKetelaar\fut\bot\config\Comparisons;
-use JKetelaar\fut\bot\config\Configuration;
-use JKetelaar\fut\bot\config\URL;
-use JKetelaar\fut\bot\errors\CaptchaException;
-use JKetelaar\fut\bot\errors\login\MainLogin;
-use JKetelaar\fut\bot\errors\NulledTokenFunction;
-use JKetelaar\fut\bot\web\Parser;
+use JKetelaar\fut\api\API;
+use JKetelaar\fut\api\config\Comparisons;
+use JKetelaar\fut\api\config\Configuration;
+use JKetelaar\fut\api\config\URL;
+use JKetelaar\fut\api\errors\CaptchaException;
+use JKetelaar\fut\api\errors\login\MainLogin;
+use JKetelaar\fut\api\errors\NulledTokenFunction;
+use JKetelaar\fut\api\web\Parser;
 
 class Login {
 

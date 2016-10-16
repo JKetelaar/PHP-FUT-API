@@ -3,7 +3,7 @@
  * @author JKetelaar
  */
 
-namespace JKetelaar\fut\bot\errors\login;
+namespace JKetelaar\fut\api\errors\login;
 
 class BaseLoginException extends \Exception {
     /**

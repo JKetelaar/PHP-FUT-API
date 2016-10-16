@@ -3,15 +3,15 @@
  * @author JKetelaar
  */
 
-namespace JKetelaar\fut\bot;
+namespace JKetelaar\fut\api;
 
 use Curl\Curl;
-use JKetelaar\fut\bot\database\Players;
-use JKetelaar\fut\bot\errors\NonExistingTokenFunction;
-use JKetelaar\fut\bot\errors\UnknownPlatform;
-use JKetelaar\fut\bot\market\Handler;
-use JKetelaar\fut\bot\user\Login;
-use JKetelaar\fut\bot\user\User;
+use JKetelaar\fut\api\database\Players;
+use JKetelaar\fut\api\errors\NonExistingTokenFunction;
+use JKetelaar\fut\api\errors\UnknownPlatform;
+use JKetelaar\fut\api\market\Handler;
+use JKetelaar\fut\api\user\Login;
+use JKetelaar\fut\api\user\User;
 
 class API {
     /**

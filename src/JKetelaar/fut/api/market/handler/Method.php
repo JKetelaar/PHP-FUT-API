@@ -3,9 +3,9 @@
  * @author JKetelaar
  */
 
-namespace JKetelaar\fut\bot\market\handler;
+namespace JKetelaar\fut\api\market\handler;
 
-use JKetelaar\fut\bot\ImprovedEnum;
+use JKetelaar\fut\api\ImprovedEnum;
 
 /**
  * Class Method
@@ -13,7 +13,7 @@ use JKetelaar\fut\bot\ImprovedEnum;
  * @method static Method POST()
  * @method static Method PUT()
  * @method static Method DELETE()
- * @package JKetelaar\fut\bot\market\handler
+ * @package JKetelaar\fut\api\market\handler
  */
 class Method extends ImprovedEnum {
 

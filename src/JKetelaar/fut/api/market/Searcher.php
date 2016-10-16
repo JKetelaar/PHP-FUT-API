@@ -3,13 +3,13 @@
  * @author JKetelaar
  */
 
-namespace JKetelaar\fut\bot\market;
+namespace JKetelaar\fut\api\market;
 
-use JKetelaar\fut\bot\config\URL;
-use JKetelaar\fut\bot\errors\market\AmountTooBigException;
-use JKetelaar\fut\bot\market\items\ItemType;
-use JKetelaar\fut\bot\market\searching\filters\AttributeFilter;
-use JKetelaar\fut\bot\market\trading\Trade;
+use JKetelaar\fut\api\config\URL;
+use JKetelaar\fut\api\errors\market\AmountTooBigException;
+use JKetelaar\fut\api\market\items\ItemType;
+use JKetelaar\fut\api\market\searching\filters\AttributeFilter;
+use JKetelaar\fut\api\market\trading\Trade;
 
 class Searcher {
 

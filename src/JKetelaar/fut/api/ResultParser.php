@@ -3,7 +3,7 @@
  * @author JKetelaar
  */
 
-namespace JKetelaar\fut\bot;
+namespace JKetelaar\fut\api;
 
 interface ResultParser {
     /**

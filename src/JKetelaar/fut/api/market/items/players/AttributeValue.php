@@ -3,10 +3,10 @@
  * @author JKetelaar
  */
 
-namespace JKetelaar\fut\bot\market\items\players;
+namespace JKetelaar\fut\api\market\items\players;
 
-use JKetelaar\fut\bot\market\items\players\attributes\Attribute;
-use JKetelaar\fut\bot\ResultParser;
+use JKetelaar\fut\api\market\items\players\attributes\Attribute;
+use JKetelaar\fut\api\ResultParser;
 
 class AttributeValue implements ResultParser {
 

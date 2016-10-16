@@ -3,9 +3,9 @@
  * @author JKetelaar
  */
 
-namespace JKetelaar\fut\bot\market\items;
+namespace JKetelaar\fut\api\market\items;
 
-use JKetelaar\fut\bot\market\items\misc\Formation;
+use JKetelaar\fut\api\market\items\misc\Formation;
 
 abstract class AbstractItemType {
 

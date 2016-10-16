@@ -3,11 +3,11 @@
  * @author JKetelaar
  */
 
-namespace JKetelaar\fut\bot\market\searching\filters;
+namespace JKetelaar\fut\api\market\searching\filters;
 
-use JKetelaar\fut\bot\market\items\players\attributes\Attribute;
-use JKetelaar\fut\bot\market\items\players\PlayerType;
-use JKetelaar\fut\bot\market\trading\Trade;
+use JKetelaar\fut\api\market\items\players\attributes\Attribute;
+use JKetelaar\fut\api\market\items\players\PlayerType;
+use JKetelaar\fut\api\market\trading\Trade;
 
 class AttributeFilter implements Filter {
 

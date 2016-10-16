@@ -3,10 +3,10 @@
  * @author JKetelaar
  */
 
-namespace JKetelaar\fut\bot\user;
+namespace JKetelaar\fut\api\user;
 
-use JKetelaar\fut\bot\errors\NonExistingTokenFunction;
-use JKetelaar\fut\bot\errors\NulledTokenFunction;
+use JKetelaar\fut\api\errors\NonExistingTokenFunction;
+use JKetelaar\fut\api\errors\NulledTokenFunction;
 
 class User {
 

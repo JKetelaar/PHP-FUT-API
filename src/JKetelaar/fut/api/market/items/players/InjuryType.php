@@ -3,9 +3,9 @@
  * @author JKetelaar
  */
 
-namespace JKetelaar\fut\bot\market\items\players;
+namespace JKetelaar\fut\api\market\items\players;
 
-use JKetelaar\fut\bot\ImprovedEnum;
+use JKetelaar\fut\api\ImprovedEnum;
 
 class InjuryType extends ImprovedEnum {
 

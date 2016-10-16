@@ -3,9 +3,9 @@
  * @author JKetelaar
  */
 
-namespace JKetelaar\fut\bot\market\items\players\attributes;
+namespace JKetelaar\fut\api\market\items\players\attributes;
 
-use JKetelaar\fut\bot\ImprovedEnum;
+use JKetelaar\fut\api\ImprovedEnum;
 
 class League extends ImprovedEnum {
     const ANY                     = 0;

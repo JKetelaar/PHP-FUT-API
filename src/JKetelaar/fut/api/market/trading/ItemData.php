@@ -3,13 +3,13 @@
  * @author JKetelaar
  */
 
-namespace JKetelaar\fut\bot\market\trading;
+namespace JKetelaar\fut\api\market\trading;
 
-use JKetelaar\fut\bot\market\items\AbstractItemType;
-use JKetelaar\fut\bot\market\items\ItemType;
-use JKetelaar\fut\bot\market\items\misc\ItemState;
-use JKetelaar\fut\bot\market\items\players\PlayerType;
-use JKetelaar\fut\bot\ResultParser;
+use JKetelaar\fut\api\market\items\AbstractItemType;
+use JKetelaar\fut\api\market\items\ItemType;
+use JKetelaar\fut\api\market\items\misc\ItemState;
+use JKetelaar\fut\api\market\items\players\PlayerType;
+use JKetelaar\fut\api\ResultParser;
 
 class ItemData implements ResultParser {
 

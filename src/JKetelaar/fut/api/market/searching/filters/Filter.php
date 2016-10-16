@@ -3,9 +3,9 @@
  * @author JKetelaar
  */
 
-namespace JKetelaar\fut\bot\market\searching\filters;
+namespace JKetelaar\fut\api\market\searching\filters;
 
-use JKetelaar\fut\bot\market\trading\Trade;
+use JKetelaar\fut\api\market\trading\Trade;
 
 interface Filter {
     /**

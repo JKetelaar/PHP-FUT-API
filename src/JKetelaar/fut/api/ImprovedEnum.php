@@ -3,13 +3,13 @@
  * @author JKetelaar
  */
 
-namespace JKetelaar\fut\bot;
+namespace JKetelaar\fut\api;
 
 use MyCLabs\Enum\Enum;
 
 /**
  * Class ImprovedEnum
- * @package JKetelaar\fut\bot
+ * @package JKetelaar\fut\api
  * @method static ImprovedEnum _DEFAULT()
  */
 class ImprovedEnum extends Enum {

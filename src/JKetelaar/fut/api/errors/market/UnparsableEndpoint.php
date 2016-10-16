@@ -3,7 +3,7 @@
  * @author JKetelaar
  */
 
-namespace JKetelaar\fut\bot\errors\market;
+namespace JKetelaar\fut\api\errors\market;
 
 class UnparsableEndpoint extends \Exception {
     /**

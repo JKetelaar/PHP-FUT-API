@@ -3,11 +3,11 @@
  * @author JKetelaar
  */
 
-namespace JKetelaar\fut\bot\database\models;
+namespace JKetelaar\fut\api\database\models;
 
-use JKetelaar\fut\bot\config\URL;
-use JKetelaar\fut\bot\market\items\players\attributes\Nation;
-use JKetelaar\fut\bot\ResultParser;
+use JKetelaar\fut\api\config\URL;
+use JKetelaar\fut\api\market\items\players\attributes\Nation;
+use JKetelaar\fut\api\ResultParser;
 
 class Player implements ResultParser {
     /**

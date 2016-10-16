@@ -3,9 +3,9 @@
  * @author JKetelaar
  */
 
-namespace JKetelaar\fut\bot\market\trading;
+namespace JKetelaar\fut\api\market\trading;
 
-use JKetelaar\fut\bot\ResultParser;
+use JKetelaar\fut\api\ResultParser;
 
 class Trade implements ResultParser {
 

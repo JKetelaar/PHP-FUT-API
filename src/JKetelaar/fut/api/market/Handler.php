@@ -3,20 +3,20 @@
  * @author JKetelaar
  */
 
-namespace JKetelaar\fut\bot\market;
+namespace JKetelaar\fut\api\market;
 
 use Curl\Curl;
-use JKetelaar\fut\bot\config\Configuration;
-use JKetelaar\fut\bot\config\URL;
-use JKetelaar\fut\bot\errors\market\IncorrectEndpoint;
-use JKetelaar\fut\bot\errors\market\IncorrectHeaders;
-use JKetelaar\fut\bot\errors\market\MarketError;
-use JKetelaar\fut\bot\errors\market\UnknownEndpoint;
-use JKetelaar\fut\bot\errors\market\UnparsableEndpoint;
-use JKetelaar\fut\bot\market\handler\Method;
-use JKetelaar\fut\bot\market\trading\ItemData;
-use JKetelaar\fut\bot\market\trading\Trade;
-use JKetelaar\fut\bot\user\User;
+use JKetelaar\fut\api\config\Configuration;
+use JKetelaar\fut\api\config\URL;
+use JKetelaar\fut\api\errors\market\IncorrectEndpoint;
+use JKetelaar\fut\api\errors\market\IncorrectHeaders;
+use JKetelaar\fut\api\errors\market\MarketError;
+use JKetelaar\fut\api\errors\market\UnknownEndpoint;
+use JKetelaar\fut\api\errors\market\UnparsableEndpoint;
+use JKetelaar\fut\api\market\handler\Method;
+use JKetelaar\fut\api\market\trading\ItemData;
+use JKetelaar\fut\api\market\trading\Trade;
+use JKetelaar\fut\api\user\User;
 
 class Handler {
 

@@ -3,18 +3,18 @@
  * @author JKetelaar
  */
 
-namespace JKetelaar\fut\bot\market\items\players;
+namespace JKetelaar\fut\api\market\items\players;
 
-use JKetelaar\fut\bot\market\items\AbstractItemType;
-use JKetelaar\fut\bot\market\items\misc\Formation;
-use JKetelaar\fut\bot\market\items\players\attributes\ChemistryStyle;
-use JKetelaar\fut\bot\market\items\players\attributes\Nation;
-use JKetelaar\fut\bot\market\items\players\attributes\Position;
-use JKetelaar\fut\bot\ResultParser;
+use JKetelaar\fut\api\market\items\AbstractItemType;
+use JKetelaar\fut\api\market\items\misc\Formation;
+use JKetelaar\fut\api\market\items\players\attributes\ChemistryStyle;
+use JKetelaar\fut\api\market\items\players\attributes\Nation;
+use JKetelaar\fut\api\market\items\players\attributes\Position;
+use JKetelaar\fut\api\ResultParser;
 
 /**
  * Class PlayerType
- * @package JKetelaar\fut\bot\market\items\players
+ * @package JKetelaar\fut\api\market\items\players
  * @AllArgsConstructor
  */
 class PlayerType extends AbstractItemType implements ResultParser {

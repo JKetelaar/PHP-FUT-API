@@ -3,9 +3,9 @@
  * @author JKetelaar
  */
 
-namespace JKetelaar\fut\bot\market\searching;
+namespace JKetelaar\fut\api\market\searching;
 
-use JKetelaar\fut\bot\ImprovedEnum;
+use JKetelaar\fut\api\ImprovedEnum;
 
 class Parameter extends ImprovedEnum {
     const LEAGUE               = 'leag';

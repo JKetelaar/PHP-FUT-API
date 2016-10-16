@@ -3,7 +3,7 @@
  * @author JKetelaar
  */
 
-namespace JKetelaar\fut\bot\config;
+namespace JKetelaar\fut\api\config;
 
 abstract class Comparisons {
 
