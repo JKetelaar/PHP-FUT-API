@@ -69,7 +69,7 @@ class AttributeValue implements ResultParser {
     }
 
     /**
-     * @return string
+     * @return int
      */
     public function getValue() {
         return $this->value;
