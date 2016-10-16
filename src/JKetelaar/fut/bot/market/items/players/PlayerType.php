@@ -157,4 +157,81 @@ class PlayerType extends AbstractItemType implements ResultParser {
 
         return $player;
     }
+
+    /**
+     * @return int
+     */
+    public function getMorale() {
+        return $this->morale;
+    }
+
+    /**
+     * @return ChemistryStyle
+     */
+    public function getPlayStyle() {
+        return $this->playStyle;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFitness() {
+        return $this->fitness;
+    }
+
+    /**
+     * @return InjuryType
+     */
+    public function getInjuryType() {
+        return $this->injuryType;
+    }
+
+    /**
+     * @return int
+     */
+    public function getInjuryGames() {
+        return $this->injuryGames;
+    }
+
+    /**
+     * @return Position
+     */
+    public function getPreferredPosition() {
+        return $this->preferredPosition;
+    }
+
+    /**
+     * @return int
+     */
+    public function getTraining() {
+        return $this->training;
+    }
+
+    /**
+     * @return int
+     */
+    public function getContract() {
+        return $this->contract;
+    }
+
+    /**
+     * @return int
+     */
+    public function getSuspension() {
+        return $this->suspension;
+    }
+
+    /**
+     * @return AttributeValue[]
+     */
+    public function getAttributes() {
+        return $this->attributes;
+    }
+
+    /**
+     * @return Nation
+     */
+    public function getNation() {
+        return $this->nation;
+    }
 }
