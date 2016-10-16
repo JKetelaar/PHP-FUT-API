@@ -153,6 +153,8 @@ class Nation extends ImprovedEnum {
     const WALES               = 50;
     const ZAMBIA              = 147;
     const ZIMBABWE            = 148;
+    const NONE                = -1;
+    const _DEFAULT            = self::NONE;
 
     public function getName() {
         return ucwords(str_replace('_', ' ', strtolower($this->getKey())));
