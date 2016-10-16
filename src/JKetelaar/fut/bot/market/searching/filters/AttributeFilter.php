@@ -5,7 +5,6 @@
 
 namespace JKetelaar\fut\bot\market\searching\filters;
 
-use JKetelaar\fut\bot\market\items\ItemType;
 use JKetelaar\fut\bot\market\items\players\attributes\Attribute;
 use JKetelaar\fut\bot\market\items\players\PlayerType;
 use JKetelaar\fut\bot\market\trading\Trade;

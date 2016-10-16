@@ -36,8 +36,8 @@ class Searcher {
      * @param int               $amount
      * @param array             $params
      *
-     * @return array|bool|null|string
      * @throws AmountTooBigException
+     * @return array|bool|null|string
      */
     public function searchFor(ItemType $type, array $filters = [], $offset = 0, $amount = 16, array $params = []) {
         if($amount > self::LIMIT) {
