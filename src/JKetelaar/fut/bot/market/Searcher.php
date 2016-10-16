@@ -8,6 +8,7 @@ namespace JKetelaar\fut\bot\market;
 use JKetelaar\fut\bot\config\URL;
 use JKetelaar\fut\bot\errors\market\AmountTooBigException;
 use JKetelaar\fut\bot\market\items\ItemType;
+use JKetelaar\fut\bot\market\searching\filters\AttributeFilter;
 use JKetelaar\fut\bot\market\trading\Trade;
 
 class Searcher {
@@ -29,15 +30,16 @@ class Searcher {
     }
 
     /**
-     * @param ItemType $type
-     * @param int      $offset
-     * @param int      $amount
-     * @param array    $params
+     * @param ItemType          $type
+     * @param AttributeFilter[] $filters
+     * @param int               $offset
+     * @param int               $amount
+     * @param array             $params
      *
-     * @throws AmountTooBigException
      * @return array|bool|null|string
+     * @throws AmountTooBigException
      */
-    public function searchFor(ItemType $type, $offset = 0, $amount = 16, array $params = []) {
+    public function searchFor(ItemType $type, array $filters = [], $offset = 0, $amount = 16, array $params = []) {
         if($amount > self::LIMIT) {
             throw new AmountTooBigException($amount, self::LIMIT);
         }
@@ -63,6 +65,10 @@ class Searcher {
             )[ Trade::TAG ] as $item
         ) {
             $trades[] = Trade::toObject($item);
+        }
+
+        foreach($filters as $filter){
+            $trades = $filter->filter($trades);
         }
 
         return $trades;
