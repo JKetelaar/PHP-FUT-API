@@ -10,7 +10,7 @@ No wait, let's first answer a question.
 **N:** Great! Welcome to the perfect PHP FUT Bot :smirk:
 
 ## How to install?
-Install this project using Composer; `composer require jketelaar/php-fut-bot`.
+Install this project using Composer; `composer require jketelaar/php-fut-api`.
 
 Then start using the API using something like:
 ```
