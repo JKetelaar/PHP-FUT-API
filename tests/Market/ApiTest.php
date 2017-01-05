@@ -5,7 +5,6 @@
 
 namespace Market;
 
-
 use JKetelaar\fut\api\API;
 
 class ApiTest extends \PHPUnit_Framework_TestCase {

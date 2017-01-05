@@ -45,18 +45,18 @@ class Players {
     }
 
     public function getPlayer($id) {
-        if (isset($this->cachedPlayers[$id])){
-            return $this->cachedPlayers[$id];
+        if(isset($this->cachedPlayers[ $id ])) {
+            return $this->cachedPlayers[ $id ];
         }
 
         $result = null;
-        foreach($this->cachedJSON['Players'] as $player){
-            if ($player['id'] == $id){
+        foreach($this->cachedJSON[ 'Players' ] as $player) {
+            if($player[ 'id' ] == $id) {
                 $result = $player;
             }
         }
 
-        if ($result === null) {
+        if($result === null) {
             foreach($this->cachedPlayers[ 'LegendsPlayers' ] as $legend) {
                 if($legend[ 'id' ] == $id) {
                     $result = $legend;
@@ -64,9 +64,9 @@ class Players {
             }
         }
 
-        if ($result != null){
-            $player                   = Player::toObject($result);
-            $this->cachedPlayers[$id] = ($result = $player);
+        if($result != null) {
+            $player                     = Player::toObject($result);
+            $this->cachedPlayers[ $id ] = ($result = $player);
         }
 
         return $result;

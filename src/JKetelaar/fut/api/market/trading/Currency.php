@@ -40,6 +40,17 @@ class Currency implements ResultParser {
     }
 
     /**
+     * @param array $result
+     *
+     * @return object
+     */
+    public static function toObject($result) {
+        return new self(
+            $result[ 'name' ], $result[ 'funds' ], $result[ 'finalFunds' ]
+        );
+    }
+
+    /**
      * @return string
      */
     public function getFunds() {
@@ -58,16 +69,5 @@ class Currency implements ResultParser {
      */
     public function getName() {
         return $this->name;
-    }
-
-    /**
-     * @param array $result
-     *
-     * @return object
-     */
-    public static function toObject($result) {
-        return new self(
-            $result[ 'name' ], $result[ 'funds' ], $result[ 'finalFunds' ]
-        );
     }
 }

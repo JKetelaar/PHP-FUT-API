@@ -178,7 +178,7 @@ class Handler {
      * @return Searcher
      */
     public function getSearcher() {
-        if ($this->searcher == null){
+        if($this->searcher == null) {
             $this->searcher = new Searcher($this);
         }
 

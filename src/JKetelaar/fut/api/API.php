@@ -122,7 +122,7 @@ class API {
      * @return Players
      */
     public function getPlayersAPI() {
-        if ($this->playersAPI == null){
+        if($this->playersAPI == null) {
             $this->playersAPI = new Players();
         }
 

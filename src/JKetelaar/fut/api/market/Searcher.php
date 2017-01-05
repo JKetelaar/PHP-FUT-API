@@ -67,7 +67,7 @@ class Searcher {
             $trades[] = Trade::toObject($item);
         }
 
-        foreach($filters as $filter){
+        foreach($filters as $filter) {
             $trades = $filter->filter($trades);
         }
 
