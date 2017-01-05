@@ -18,8 +18,7 @@ abstract class Configuration {
     const X_UT_EMBED_ERROR       = true;
     const X_UT_ROUTE             = 'https://utas.external.fut.ea.com';
     const X_REQUESTED_WITH       = 'XMLHttpRequest';
-
-    const X_UT_ROUTE_PARAM = 'X-UT-Route';
+    const X_UT_ROUTE_PARAM       = 'X-UT-Route';
 
     // Forms defaults
     const FORM_LOGIN_DEFAULTS = [
