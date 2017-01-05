@@ -16,7 +16,7 @@ abstract class Configuration {
     const HEADER_DNT             = '1';
     const HEADER_CACHE_CONTROL   = 'no-cache';
     const X_UT_EMBED_ERROR       = true;
-    const X_UT_ROUTE             = 'https://utas.fut.ea.com';
+    const X_UT_ROUTE             = 'https://utas.external.fut.ea.com';
     const X_REQUESTED_WITH       = 'XMLHttpRequest';
 
     const X_UT_ROUTE_PARAM = 'X-UT-Route';
