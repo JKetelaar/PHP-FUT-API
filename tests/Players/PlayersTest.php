@@ -5,7 +5,8 @@
 
 namespace Players;
 
-use JKetelaar\fut\bot\database\Players;
+
+use JKetelaar\fut\api\database\Players;
 
 class PlayersTest extends \PHPUnit_Framework_TestCase {
     /**
