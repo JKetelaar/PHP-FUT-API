@@ -5,3 +5,5 @@
 /composer.lock
 /.idea
 /.fut-bot
+/GUI
+.DS_Store
