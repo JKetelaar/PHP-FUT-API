@@ -19,7 +19,7 @@ require_once('vendor/autoload.php');
 
 define('DATA_DIR', __DIR__ . '/data/');
 
-$api = new \JKetelaar\fut\bot\API('your@email.me', 'password', 'secret', 'totp_callback', 'platform');
+$api = new \JKetelaar\fut\api\API('your@email.me', 'password', 'secret', 'totp_callback', 'platform');
 
 if($api->login() === true) {
     echo('We\'re logged in!' . "\n");
