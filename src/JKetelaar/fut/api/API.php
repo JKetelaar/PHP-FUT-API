@@ -109,7 +109,7 @@ class API {
      */
     public function getHandler() {
         if(($handler = $this->handler) == null) {
-            $this->handler = new Handler($this->curl, $this->user);
+            $this->handler = new Handler($this->curl, $this->user, $this->avoidSSL);
         }
 
         return $this->handler;
