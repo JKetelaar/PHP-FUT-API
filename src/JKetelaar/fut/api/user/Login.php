@@ -58,15 +58,14 @@ class Login {
      *
      * @param User   $user
      * @param string $path
-     * @param bool   $avoidSSL
      */
-    public function __construct(User $user, $path, $avoidSSL = false) {
+    public function __construct(User $user, $path) {
         $this->user = $user;
         $this->path = $path;
-        $this->curl = $this->setupCurl($avoidSSL);
+        $this->curl = $this->setupCurl();
     }
 
-    private function setupCurl($avoidSSL) {
+    private function setupCurl() {
         // Some pages are more than 2MB, so we have to reserve some extra space
         define('MAX_FILE_SIZE', 5 * 1000 * 1000);
 
@@ -81,10 +80,6 @@ class Login {
         $curl->setUserAgent(Configuration::HEADER_USER_AGENT);
         $curl->setCookieFile($this->path);
         $curl->setCookieJar($this->path);
-
-        if($avoidSSL === true) {
-            $curl->setOpt(CURLOPT_SSL_VERIFYPEER, false);
-        }
 
         return $curl;
     }

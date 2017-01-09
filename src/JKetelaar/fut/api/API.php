@@ -40,11 +40,6 @@ class API {
     private $playersAPI;
 
     /**
-     * @var bool
-     */
-    private $avoidSSL;
-
-    /**
      * API constructor.
      *
      * @param string $username
@@ -53,12 +48,10 @@ class API {
      * @param string $token_function
      * @param string $platform
      *
-     * @param bool   $avoidSSL
-     *
      * @throws NonExistingTokenFunction
      * @throws UnknownPlatform
      */
-    public function __construct($username, $password, $secret, $token_function, $platform, $avoidSSL = false) {
+    public function __construct($username, $password, $secret, $token_function, $platform) {
         if(self::getPlatform($platform) == null) {
             throw new UnknownPlatform();
         }
@@ -68,8 +61,6 @@ class API {
         } else {
             throw new NonExistingTokenFunction();
         }
-
-        $this->avoidSSL = $avoidSSL;
     }
 
     public static final function getPlatform($platform) {
@@ -117,7 +108,7 @@ class API {
 
     public function login($path = DATA_DIR . '/cookies.txt') {
         if($this->login == null) {
-            $this->login = new Login($this->user, $path, $this->avoidSSL);
+            $this->login = new Login($this->user, $path);
         }
 
         if(($result = $this->login->login()) === true) {
