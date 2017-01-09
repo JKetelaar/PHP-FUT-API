@@ -36,14 +36,21 @@ class Handler {
     private $searcher;
 
     /**
+     * @var bool
+     */
+    private $avoidSSL;
+
+    /**
      * Handler constructor.
      *
      * @param Curl $curl
      * @param User $user
+     * @param bool $avoidSSL
      */
-    public function __construct(Curl $curl, User $user) {
-        $this->curl = $curl;
-        $this->user = $user;
+    public function __construct(Curl $curl, User $user, $avoidSSL = false) {
+        $this->curl     = $curl;
+        $this->user     = $user;
+        $this->avoidSSL = $avoidSSL;
     }
 
     /**
@@ -88,6 +95,10 @@ class Handler {
             $curl->setHeader('Accept', Configuration::HEADER_ACCEPT);
             $curl->setHeader('DNT', Configuration::HEADER_DNT);
             $curl->setUserAgent(Configuration::HEADER_USER_AGENT);
+
+            if($this->avoidSSL === true) {
+                $curl->setOpt(CURLOPT_SSL_VERIFYPEER, false);
+            }
         } else {
             $curl = &$this->curl;
         }
