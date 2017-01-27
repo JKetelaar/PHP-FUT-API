@@ -373,7 +373,11 @@ class Login {
             $document = Parser::getHTML($this->curl->response);
             $title    = Parser::getDocumentTitle($document);
 
-            if($title === Comparisons::LOGGED_IN_TITLE) {
+            if($title === Comparisons::LOGGED_IN_TITLE || ($title === Comparisons::NO_AUTHENTICATOR_FORM_TITLE && strpos(
+                        Parser::getHTML($document),
+                        'Tired of waiting for your code?'
+                    ))
+            ) {
                 return $this->getFUTPage();
             } elseif($title === Comparisons::MAIN_LOGIN_TITLE) {
                 throw new MainLogin(285719, 'Could not login');
