@@ -341,15 +341,26 @@ class Login {
             throw new MainLogin($this->curl->errorCode, $this->curl->errorMessage);
         }
 
-        $document = Parser::getHTML($this->curl->response);
-        $title    = Parser::getDocumentTitle($document);
+        preg_match_all('#(www\.|https?://)?[a-z0-9]+\.[a-z0-9]{2,4}\S*#i', $this->curl->response, $urls);
 
-        if($title === Comparisons::LOGIN_FORM_TITLE) {
-            return $this->curl->getInfo(CURLINFO_EFFECTIVE_URL);
-        } elseif($title === Comparisons::MAIN_LOGIN_TITLE) {
-            throw new MainLogin(295712, 'Login failed');
+        if(isset($urls[ 0 ]) && isset($urls[ 0 ][ 0 ])) {
+            $loginURL = $urls[0][0];
+            $loginURL = substr($loginURL, 0, strlen($loginURL) - 2);
+
+            $this->curl->get($loginURL . '&_eventId=end');
+
+            $document = Parser::getHTML($this->curl->response);
+            $title    = Parser::getDocumentTitle($document);
+
+            if($title === Comparisons::LOGIN_FORM_TITLE) {
+                return $this->curl->getInfo(CURLINFO_EFFECTIVE_URL);
+            } elseif($title === Comparisons::MAIN_LOGIN_TITLE) {
+                throw new MainLogin(295712, 'Login failed');
+            } else {
+                throw new MainLogin(281658, 'Page not matching login form page (' . $title . ')');
+            }
         } else {
-            throw new MainLogin(281658, 'Page not matching login form page (' . $title . ')');
+            throw new MainLogin(281658, 'Page not matching requested page');
         }
     }
 
@@ -398,5 +409,9 @@ class Login {
      */
     public function getCurl() {
         return $this->curl;
+    }
+
+    private function loginRedirect() {
+
     }
 }
