@@ -1,13 +1,13 @@
 [![Build Status](https://travis-ci.org/JKetelaar/PHP-FUT-API.svg?branch=master)](https://travis-ci.org/JKetelaar/PHP-FUT-API)
 [![Build Status](https://styleci.io/repos/7548986/shield?style=flat)](https://styleci.io/repos/70271316)
 
-# The perfect PHP FUT Bot
-This is a perfect FUT Bo...   
+# The perfect PHP FUT API
+This is a perfect FUT AP...   
 No wait, let's first answer a question.
 
 **Are you an EA employee?**  
 **Y:** This is nothing, just leave...  
-**N:** Great! Welcome to the perfect PHP FUT Bot :smirk:
+**N:** Great! Welcome to the perfect PHP FUT API :smirk:
 
 ## How to install?
 Install this project using Composer; `composer require jketelaar/php-fut-api`.
