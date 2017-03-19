@@ -21,7 +21,7 @@ define('DATA_DIR', __DIR__ . '/data/');
 
 $api = new \JKetelaar\fut\api\API('your@email.me', 'password', 'secret', 'totp_callback', 'platform');
 
-// You can also disable the SSL verify peer, when you're having issues with your environment. Simply pass true as the latest parameter
+// You can also disable the SSL verify peer, when you're having issues with your environment. Simply pass true as the last parameter
 // $api = new \JKetelaar\fut\bot\API('your@email.me', 'password', 'secret', 'totp_callback', 'platform', true); 
 
 if($api->login() === true) {
