@@ -3,7 +3,7 @@
  * @author JKetelaar
  */
 
-namespace JKetelaar\fut\api\market;
+namespace JKetelaar\fut\api\market\trading;
 
 use JKetelaar\fut\api\ResultParser;
 

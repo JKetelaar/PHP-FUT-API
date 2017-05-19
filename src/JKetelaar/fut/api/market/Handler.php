@@ -14,8 +14,10 @@ use JKetelaar\fut\api\errors\market\MarketError;
 use JKetelaar\fut\api\errors\market\UnknownEndpoint;
 use JKetelaar\fut\api\errors\market\UnparsableEndpoint;
 use JKetelaar\fut\api\market\handler\Method;
+use JKetelaar\fut\api\market\trading\Currency;
 use JKetelaar\fut\api\market\trading\ItemData;
 use JKetelaar\fut\api\market\trading\Trade;
+use JKetelaar\fut\api\market\trading\Trader;
 use JKetelaar\fut\api\user\User;
 
 class Handler {
@@ -34,6 +36,11 @@ class Handler {
      * @var Searcher
      */
     private $searcher;
+
+    /**
+     * @var Trader
+     */
+    private $trader;
 
     /**
      * @var bool
@@ -127,7 +134,11 @@ class Handler {
         }
 
         $curl->setHeader('X-HTTP-Method-Override', $method);
-        $curl->post($url, $data);
+        if ($method == Method::PUT){
+            $curl->put($url, $data);
+        }else {
+            $curl->post($url, $data);
+        }
 
         if($curl->error) {
             throw new MarketError(null, $curl->errorCode, $curl->errorMessage);
@@ -145,6 +156,7 @@ class Handler {
      */
     public function getTradepile() {
         $auctions = [];
+        var_dump($this->sendRequest(URL::API_TRADEPILE));
         foreach(($request = $this->sendRequest(URL::API_TRADEPILE)[ Trade::TAG ]) as $auction) {
             $auctions[] = Trade::toObject($auction);
         }
@@ -194,5 +206,15 @@ class Handler {
         }
 
         return $this->searcher;
+    }
+
+    /**
+     * @return Trader
+     */
+    public function getTrader() {
+        if ($this->trader == null){
+            $this->trader = new Trader($this);
+        }
+        return $this->trader;
     }
 }
